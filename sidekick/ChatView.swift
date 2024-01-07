@@ -69,7 +69,7 @@ struct ChatView: View {
             ScrollView {
               VStack {
                 ForEach(chatMessages) { chatMessage in
-                  ChatMessageView(chatMessage: chatMessage, finishedRendering: false)
+                  ChatMessageView(chatMessage: chatMessage, finishedRendering: true)
                 }
                   if isLoading && chatMessages.count < 2 {
                     ProgressView().padding(.horizontal)

@@ -131,6 +131,10 @@ class HighlightedTextModel: ObservableObject {
     func highlightText() {
         if let highlighter = Highlighter() {
             highlighter.setTheme("tomorrow")
+            let lines = inputText.split(separator: "\n")
+            
+            
+            
             if let highlighted = highlighter.highlight(inputText, as: "swift") {
                 highlightedText = highlighted
             } else {
@@ -162,10 +166,9 @@ struct CodeBlock: View {
   
     init(text: String, highlightText: Bool) {
         self.text = text
+        self.highlightText = highlightText
         textModel.inputText = text
-        print("highlighttext", highlightText)
         if highlightText {
-            
             textModel.highlightText()
         }
     }
@@ -178,7 +181,7 @@ struct CodeBlock: View {
                 .textSelection(.enabled)
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-               .background(.black.opacity(0.5))
+                .background(.white.opacity(0.3))
                .cornerRadius(10)
                
         } else {
@@ -186,7 +189,7 @@ struct CodeBlock: View {
                 .textSelection(.enabled)
                 .padding()
                 .frame(maxWidth: .infinity, alignment: .leading)
-               .background(.black.opacity(0.5))
+                .background(.white.opacity(0.3))
                .cornerRadius(10)
         }
            
