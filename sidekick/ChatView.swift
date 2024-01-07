@@ -10,7 +10,6 @@ import Foundation
 import Network
 import SwiftUI
 
-
 struct ChatView: View {
   let message: String
 
@@ -19,7 +18,7 @@ struct ChatView: View {
   @State private var isLoading = false
   @State private var connectionState = "loading"
   @State private var chatMessages: [ChatMessage] = []
-  @State private var loadingMessage: ChatMessage = ChatMessage(message: "", role: "assistant")
+  @State private var loadingMessage: ChatMessage = ChatMessage(content: "", role: "assistant")
 
   private func getDotColor() -> Color {
     switch self.connectionState {
@@ -42,8 +41,9 @@ struct ChatView: View {
           .fill(.ultraThinMaterial)
           .background(
             .linearGradient(
-                Gradient(colors: [.white.opacity(0.7), .black.opacity(0.5)]), startPoint: .top, endPoint: .bottom)
-             )
+              Gradient(colors: [.white.opacity(0.7), .black.opacity(0.5)]), startPoint: .top,
+              endPoint: .bottom)
+          )
           .opacity(0.85)
           .border(.clear)
           .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -65,64 +65,64 @@ struct ChatView: View {
               .foregroundColor(.white)
           }.padding(.top)
           Spacer()
-          if isLoading {
+          if isLoading && chatMessages.count < 2 {
             ProgressView().padding(.horizontal)
           } else {
-              ScrollView{
-                  VStack {
-                      ForEach(chatMessages) { chatMessage in
-                          ChatMessageView(chatMessage: chatMessage)
-                      }
-                      if !loadingMessage.message.isEmpty {
-                          ChatMessageView(chatMessage: loadingMessage)
-                      }
-                  }
-              }.defaultScrollAnchor(.bottom)
+            ScrollView {
+              VStack {
+                ForEach(chatMessages) { chatMessage in
+                  ChatMessageView(chatMessage: chatMessage)
+                }
+                if !loadingMessage.content.isEmpty {
+                  ChatMessageView(chatMessage: loadingMessage)
+                }
+              }
+            }.defaultScrollAnchor(.bottom)
           }
           Spacer()
-            VStack(alignment: .leading) {
-                
-          TextField("Enter text here...", text: $textInput)
-            .font(.title)
-            .padding()
-            .onSubmit {
-              let prompt = textInput
-                chatMessages.append(ChatMessage(message: prompt, role: "user"))
+          VStack(alignment: .leading) {
 
-              
-              isLoading = true
-              DispatchQueue.global(qos: .background).async {
-                callLlm(
-                  prompt: prompt,
-                  callbackFn: { response in
-
-                    loadingMessage = ChatMessage(
-                      message: loadingMessage.message + response, role: loadingMessage.role)
-                    
-                    isLoading = false
-                  },
-                  completeFn: {
-                    chatMessages.append(loadingMessage)
-                    loadingMessage = ChatMessage(message: "", role: "assistant")
-                  }
-                )
-              }
-              textInput = ""
-            }
-            }
-              .background(.white.opacity(0.5))
-              .cornerRadius(10)
-              .overlay(
-                Rectangle()
-                  .stroke(.black.opacity(0.1), lineWidth: 1)
-                  .cornerRadius(10)
-                  .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
-                  .clipShape(
-                    Rectangle()
-                  )
-              )
-              .shadow(radius: 1)
+            TextField("Enter text here...", text: $textInput)
+              .font(.title)
               .padding()
+              .onSubmit {
+                let prompt = textInput
+                chatMessages.append(ChatMessage(content: prompt, role: "user"))
+
+                isLoading = true
+                DispatchQueue.global(qos: .background).async {
+                  callLlm(
+                    chatMessages: chatMessages.map({ message in
+                      WireChatMessage(content: message.content, role: message.role)
+                    }),
+                    callbackFn: { response in
+
+                      loadingMessage.content += response
+
+                      isLoading = false
+                    },
+                    completeFn: {
+                      chatMessages.append(loadingMessage)
+                      loadingMessage = ChatMessage(content: "", role: "assistant")
+                    }
+                  )
+                }
+                textInput = ""
+              }
+          }
+          .background(.white.opacity(0.5))
+          .cornerRadius(10)
+          .overlay(
+            Rectangle()
+              .stroke(.black.opacity(0.1), lineWidth: 1)
+              .cornerRadius(10)
+              .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
+              .clipShape(
+                Rectangle()
+              )
+          )
+          .shadow(radius: 1)
+          .padding()
         }
 
       }

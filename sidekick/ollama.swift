@@ -9,11 +9,17 @@ import Combine
 import Foundation
 import Network
 
+public struct WireChatMessage: Codable {
+    let content: String
+    let role: String
+}
+
 struct Response: Decodable {
   let model: String
   let created_at: String
-  let response: String
+  let message: WireChatMessage
   let done: Bool
+    let total_duration: Int?
   let context: [Int]?
 }
 
@@ -51,7 +57,7 @@ class StreamProcessor: NSObject, URLSessionDataDelegate {
           // Parse the JSON data
           let decoder = JSONDecoder()
           let response = try decoder.decode(Response.self, from: Data(line.utf8))
-          callbackFn(response.response)
+            callbackFn(response.message.content)
         } catch {
           print("Could not parse JSON: \(error)")
           print(line)
@@ -81,25 +87,27 @@ public func checkIfOllamaIsRunning(callbackFn: @escaping @Sendable (_: Bool) -> 
 }
 
 public func callLlm(
-  prompt: String, callbackFn: @escaping @Sendable (_: String) -> Void,
+  chatMessages: Array<WireChatMessage>, callbackFn: @escaping @Sendable (_: String) -> Void,
   completeFn: @escaping @Sendable () -> Void
 ) {
 
   let session = URLSession(
     configuration: .default,
     delegate: StreamProcessor(callbackFn: callbackFn, completeFn: completeFn), delegateQueue: nil)
-  guard let url = URL(string: "http://127.0.0.1:11434/api/generate") else { return }
+  guard let url = URL(string: "http://127.0.0.1:11434/api/chat") else { return }
   struct RequestOptions: Codable {
     let num_predict: Int
   }
+    
+    
 
   struct RequestBody: Codable {
-    let prompt: String
+    let messages: Array<WireChatMessage>
     let model: String
-
+      let stream: Bool
   }
 
-  let requestBody = RequestBody(prompt: prompt, model: "zephyr:latest")
+    let requestBody = RequestBody(messages: chatMessages, model: "zephyr:latest", stream: true)
 
   var request = URLRequest(url: url)
   let body = try! JSONEncoder().encode(requestBody)
