@@ -14,6 +14,8 @@
 		3613E2942B49853900D96E53 /* sidekickTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E2932B49853900D96E53 /* sidekickTests.swift */; };
 		3613E29E2B49853900D96E53 /* sidekickUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E29D2B49853900D96E53 /* sidekickUITests.swift */; };
 		3613E2A02B49853900D96E53 /* sidekickUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E29F2B49853900D96E53 /* sidekickUITestsLaunchTests.swift */; };
+		3675D7212B4A861400943E9D /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3675D7202B4A861400943E9D /* ChatMessageView.swift */; };
+		3675D7232B4A867500943E9D /* ollama.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3675D7222B4A867500943E9D /* ollama.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -46,6 +48,8 @@
 		3613E29D2B49853900D96E53 /* sidekickUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickUITests.swift; sourceTree = "<group>"; };
 		3613E29F2B49853900D96E53 /* sidekickUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3613E34F2B49DA4500D96E53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		3675D7202B4A861400943E9D /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
+		3675D7222B4A867500943E9D /* ollama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ollama.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -102,6 +106,8 @@
 				3613E2852B49853900D96E53 /* Assets.xcassets */,
 				3613E28A2B49853900D96E53 /* sidekick.entitlements */,
 				3613E2872B49853900D96E53 /* Preview Content */,
+				3675D7202B4A861400943E9D /* ChatMessageView.swift */,
+				3675D7222B4A867500943E9D /* ollama.swift */,
 			);
 			path = sidekick;
 			sourceTree = "<group>";
@@ -261,6 +267,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3675D7232B4A867500943E9D /* ollama.swift in Sources */,
+				3675D7212B4A861400943E9D /* ChatMessageView.swift in Sources */,
 				3613E2842B49853800D96E53 /* ChatView.swift in Sources */,
 				3613E2822B49853800D96E53 /* sidekickApp.swift in Sources */,
 			);

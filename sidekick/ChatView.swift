@@ -10,22 +10,16 @@ import Foundation
 import Network
 import SwiftUI
 
-struct Response: Decodable {
-  let model: String
-  let created_at: String
-  let response: String
-  let done: Bool
-  let context: [Int]?
-}
 
 struct ChatView: View {
   let message: String
 
   @Binding var isPresented: Bool
   @State private var textInput = ""
-  @State private var responseText = ""
   @State private var isLoading = false
   @State private var connectionState = "loading"
+  @State private var chatMessages: [ChatMessage] = []
+  @State private var loadingMessage: ChatMessage = ChatMessage(message: "", role: "assistant")
 
   private func getDotColor() -> Color {
     switch self.connectionState {
@@ -47,10 +41,9 @@ struct ChatView: View {
         RoundedRectangle(cornerRadius: 10)
           .fill(.ultraThinMaterial)
           .background(
-            .radialGradient(
-              AnyGradient(Gradient(colors: [.white.opacity(0.5), .black.opacity(0.5)])),
-              endRadius: CGFloat(1000))
-          )
+            .linearGradient(
+                Gradient(colors: [.white.opacity(0.7), .black.opacity(0.5)]), startPoint: .top, endPoint: .bottom)
+             )
           .opacity(0.85)
           .border(.clear)
           .frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -73,35 +66,63 @@ struct ChatView: View {
           }.padding(.top)
           Spacer()
           if isLoading {
-            InfiniteProgressView().padding(.horizontal)
+            ProgressView().padding(.horizontal)
           } else {
-            Text(responseText)
-              .font(.title3)
-              .foregroundStyle(.white)
-              .padding(.horizontal)
-              .background(.clear)
-              .textSelection(.enabled)
-              .scrollTarget(isEnabled: true)
+              ScrollView{
+                  VStack {
+                      ForEach(chatMessages) { chatMessage in
+                          ChatMessageView(chatMessage: chatMessage)
+                      }
+                      if !loadingMessage.message.isEmpty {
+                          ChatMessageView(chatMessage: loadingMessage)
+                      }
+                  }
+              }.defaultScrollAnchor(.bottom)
           }
           Spacer()
+            VStack(alignment: .leading) {
+                
           TextField("Enter text here...", text: $textInput)
-            .font(.title3)
+            .font(.title)
             .padding()
             .onSubmit {
-              let prompt = self.textInput
-              self.responseText = ""
-              self.isLoading = true
+              let prompt = textInput
+                chatMessages.append(ChatMessage(message: prompt, role: "user"))
+
+              
+              isLoading = true
               DispatchQueue.global(qos: .background).async {
                 callLlm(
                   prompt: prompt,
-
                   callbackFn: { response in
-                    self.responseText += response
-                    self.isLoading = false
-                  })
+
+                    loadingMessage = ChatMessage(
+                      message: loadingMessage.message + response, role: loadingMessage.role)
+                    
+                    isLoading = false
+                  },
+                  completeFn: {
+                    chatMessages.append(loadingMessage)
+                    loadingMessage = ChatMessage(message: "", role: "assistant")
+                  }
+                )
               }
-              self.textInput = ""
+              textInput = ""
             }
+            }
+              .background(.white.opacity(0.5))
+              .cornerRadius(10)
+              .overlay(
+                Rectangle()
+                  .stroke(.black.opacity(0.1), lineWidth: 1)
+                  .cornerRadius(10)
+                  .shadow(color: .black.opacity(0.1), radius: 2, x: 0, y: 0)
+                  .clipShape(
+                    Rectangle()
+                  )
+              )
+              .shadow(radius: 1)
+              .padding()
         }
 
       }
@@ -117,106 +138,4 @@ struct ChatView_Previews: PreviewProvider {
       .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
       .preferredColorScheme(.dark)
   }
-}
-
-struct InfiniteProgressView: View {
-  private let timerPublisher = Timer.publish(every: 0.1, on: .current, in: .default).autoconnect()
-  @State private var counter: Float = 0
-
-  var body: some View {
-    GeometryReader { geometry in
-      ProgressView(value: counter, total: 10)
-    }.onReceive(timerPublisher) { _ in
-      self.incrementCounter()
-    }
-  }
-
-  private func incrementCounter() {
-    self.counter = (self.counter + 0.1).truncatingRemainder(dividingBy: 10)
-  }
-}
-
-class StreamProcessor: NSObject, URLSessionDataDelegate {
-  let callbackFn: (_: String) -> Void
-  var dataBuffer = Data()
-
-  init(callbackFn: @escaping @Sendable (_: String) -> Void, dataBuffer: Data = Data()) {
-    self.dataBuffer = dataBuffer
-    self.callbackFn = callbackFn
-  }
-
-  func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-    dataBuffer.append(data)
-    processBuffer()
-  }
-
-  func processBuffer() {
-    // Find the range to the first newline character
-    if let range = dataBuffer.range(of: Data("\n".utf8)) {
-      let lineData = dataBuffer.subdata(in: 0..<range.lowerBound)
-      dataBuffer.removeSubrange(0..<range.upperBound)
-
-      if let line = String(data: lineData, encoding: .utf8) {
-
-        do {
-          // Parse the JSON data
-          let decoder = JSONDecoder()
-          let response = try decoder.decode(Response.self, from: Data(line.utf8))
-          callbackFn(response.response)
-
-        } catch {
-          print("Could not parse JSON: \(error)")
-          print(line)
-        }
-      }
-
-      processBuffer()  // Recursively process the next line
-    }
-  }
-}
-
-func checkIfOllamaIsRunning(callbackFn: @escaping @Sendable (_: Bool) -> Void) {
-  let session = URLSession.shared
-
-  guard let baseUrl = URL(string: "http://127.0.0.1:11434") else {
-    callbackFn(false)
-    return
-  }
-  let checkTask = session.dataTask(with: baseUrl) { data, response, error in
-    guard let data = data else {
-      callbackFn(false)
-      return
-    }
-    callbackFn(String(data: data, encoding: .utf8)! == "Ollama is running")
-  }
-  checkTask.resume()
-}
-
-func callLlm(prompt: String, callbackFn: @escaping @Sendable (_: String) -> Void) {
-
-  let session = URLSession(
-    configuration: .default, delegate: StreamProcessor(callbackFn: callbackFn), delegateQueue: nil)
-  guard let url = URL(string: "http://127.0.0.1:11434/api/generate") else { return }
-  struct RequestOptions: Codable {
-    let num_predict: Int
-  }
-
-  struct RequestBody: Codable {
-    let prompt: String
-    let model: String
-
-  }
-
-  let requestBody = RequestBody(prompt: prompt, model: "zephyr:latest")
-
-  var request = URLRequest(url: url)
-  let body = try! JSONEncoder().encode(requestBody)
-  request.addValue("application/json", forHTTPHeaderField: "content-type")
-  request.httpMethod = "POST"
-  request.httpBody = body
-
-  let task = session.dataTask(with: request)
-
-  task.resume()
-
 }
