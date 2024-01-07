@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Splash
 import SwiftUI
 import Highlighter
 
@@ -133,7 +132,7 @@ class HighlightedTextModel: ObservableObject {
             highlighter.setTheme("tomorrow")
             let lines = inputText.split(separator: "\n")
             if let firstLine = lines.first {
-                if firstLine.with {
+                if firstLine.starts(with: ">>>") {
                     
                 }
             }
