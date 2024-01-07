@@ -1,0 +1,598 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		3613E2822B49853800D96E53 /* sidekickApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E2812B49853800D96E53 /* sidekickApp.swift */; };
+		3613E2842B49853800D96E53 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E2832B49853800D96E53 /* ChatView.swift */; };
+		3613E2862B49853900D96E53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3613E2852B49853900D96E53 /* Assets.xcassets */; };
+		3613E2892B49853900D96E53 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3613E2882B49853900D96E53 /* Preview Assets.xcassets */; };
+		3613E2942B49853900D96E53 /* sidekickTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E2932B49853900D96E53 /* sidekickTests.swift */; };
+		3613E29E2B49853900D96E53 /* sidekickUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E29D2B49853900D96E53 /* sidekickUITests.swift */; };
+		3613E2A02B49853900D96E53 /* sidekickUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E29F2B49853900D96E53 /* sidekickUITestsLaunchTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		3613E2902B49853900D96E53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3613E2762B49853800D96E53 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3613E27D2B49853800D96E53;
+			remoteInfo = sidekick;
+		};
+		3613E29A2B49853900D96E53 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3613E2762B49853800D96E53 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3613E27D2B49853800D96E53;
+			remoteInfo = sidekick;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		3613E27E2B49853800D96E53 /* sidekick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sidekick.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3613E2812B49853800D96E53 /* sidekickApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickApp.swift; sourceTree = "<group>"; };
+		3613E2832B49853800D96E53 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
+		3613E2852B49853900D96E53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		3613E2882B49853900D96E53 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		3613E28A2B49853900D96E53 /* sidekick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = sidekick.entitlements; sourceTree = "<group>"; };
+		3613E28F2B49853900D96E53 /* sidekickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sidekickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3613E2932B49853900D96E53 /* sidekickTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickTests.swift; sourceTree = "<group>"; };
+		3613E2992B49853900D96E53 /* sidekickUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sidekickUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3613E29D2B49853900D96E53 /* sidekickUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickUITests.swift; sourceTree = "<group>"; };
+		3613E29F2B49853900D96E53 /* sidekickUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3613E34F2B49DA4500D96E53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		3613E27B2B49853800D96E53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3613E28C2B49853900D96E53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3613E2962B49853900D96E53 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		3613E2752B49853800D96E53 = {
+			isa = PBXGroup;
+			children = (
+				3613E2802B49853800D96E53 /* sidekick */,
+				3613E2922B49853900D96E53 /* sidekickTests */,
+				3613E29C2B49853900D96E53 /* sidekickUITests */,
+				3613E27F2B49853800D96E53 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		3613E27F2B49853800D96E53 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3613E27E2B49853800D96E53 /* sidekick.app */,
+				3613E28F2B49853900D96E53 /* sidekickTests.xctest */,
+				3613E2992B49853900D96E53 /* sidekickUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		3613E2802B49853800D96E53 /* sidekick */ = {
+			isa = PBXGroup;
+			children = (
+				3613E34F2B49DA4500D96E53 /* Info.plist */,
+				3613E2812B49853800D96E53 /* sidekickApp.swift */,
+				3613E2832B49853800D96E53 /* ChatView.swift */,
+				3613E2852B49853900D96E53 /* Assets.xcassets */,
+				3613E28A2B49853900D96E53 /* sidekick.entitlements */,
+				3613E2872B49853900D96E53 /* Preview Content */,
+			);
+			path = sidekick;
+			sourceTree = "<group>";
+		};
+		3613E2872B49853900D96E53 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				3613E2882B49853900D96E53 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		3613E2922B49853900D96E53 /* sidekickTests */ = {
+			isa = PBXGroup;
+			children = (
+				3613E2932B49853900D96E53 /* sidekickTests.swift */,
+			);
+			path = sidekickTests;
+			sourceTree = "<group>";
+		};
+		3613E29C2B49853900D96E53 /* sidekickUITests */ = {
+			isa = PBXGroup;
+			children = (
+				3613E29D2B49853900D96E53 /* sidekickUITests.swift */,
+				3613E29F2B49853900D96E53 /* sidekickUITestsLaunchTests.swift */,
+			);
+			path = sidekickUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		3613E27D2B49853800D96E53 /* sidekick */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3613E2A32B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekick" */;
+			buildPhases = (
+				3613E27A2B49853800D96E53 /* Sources */,
+				3613E27B2B49853800D96E53 /* Frameworks */,
+				3613E27C2B49853800D96E53 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = sidekick;
+			productName = sidekick;
+			productReference = 3613E27E2B49853800D96E53 /* sidekick.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3613E28E2B49853900D96E53 /* sidekickTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3613E2A62B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekickTests" */;
+			buildPhases = (
+				3613E28B2B49853900D96E53 /* Sources */,
+				3613E28C2B49853900D96E53 /* Frameworks */,
+				3613E28D2B49853900D96E53 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3613E2912B49853900D96E53 /* PBXTargetDependency */,
+			);
+			name = sidekickTests;
+			productName = sidekickTests;
+			productReference = 3613E28F2B49853900D96E53 /* sidekickTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		3613E2982B49853900D96E53 /* sidekickUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3613E2A92B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekickUITests" */;
+			buildPhases = (
+				3613E2952B49853900D96E53 /* Sources */,
+				3613E2962B49853900D96E53 /* Frameworks */,
+				3613E2972B49853900D96E53 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3613E29B2B49853900D96E53 /* PBXTargetDependency */,
+			);
+			name = sidekickUITests;
+			productName = sidekickUITests;
+			productReference = 3613E2992B49853900D96E53 /* sidekickUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		3613E2762B49853800D96E53 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1500;
+				LastUpgradeCheck = 1500;
+				TargetAttributes = {
+					3613E27D2B49853800D96E53 = {
+						CreatedOnToolsVersion = 15.0;
+					};
+					3613E28E2B49853900D96E53 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 3613E27D2B49853800D96E53;
+					};
+					3613E2982B49853900D96E53 = {
+						CreatedOnToolsVersion = 15.0;
+						TestTargetID = 3613E27D2B49853800D96E53;
+					};
+				};
+			};
+			buildConfigurationList = 3613E2792B49853800D96E53 /* Build configuration list for PBXProject "sidekick" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 3613E2752B49853800D96E53;
+			productRefGroup = 3613E27F2B49853800D96E53 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				3613E27D2B49853800D96E53 /* sidekick */,
+				3613E28E2B49853900D96E53 /* sidekickTests */,
+				3613E2982B49853900D96E53 /* sidekickUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		3613E27C2B49853800D96E53 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3613E2892B49853900D96E53 /* Preview Assets.xcassets in Resources */,
+				3613E2862B49853900D96E53 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3613E28D2B49853900D96E53 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3613E2972B49853900D96E53 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		3613E27A2B49853800D96E53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3613E2842B49853800D96E53 /* ChatView.swift in Sources */,
+				3613E2822B49853800D96E53 /* sidekickApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3613E28B2B49853900D96E53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3613E2942B49853900D96E53 /* sidekickTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		3613E2952B49853900D96E53 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3613E2A02B49853900D96E53 /* sidekickUITestsLaunchTests.swift in Sources */,
+				3613E29E2B49853900D96E53 /* sidekickUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3613E2912B49853900D96E53 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3613E27D2B49853800D96E53 /* sidekick */;
+			targetProxy = 3613E2902B49853900D96E53 /* PBXContainerItemProxy */;
+		};
+		3613E29B2B49853900D96E53 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3613E27D2B49853800D96E53 /* sidekick */;
+			targetProxy = 3613E29A2B49853900D96E53 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		3613E2A12B49853900D96E53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		3613E2A22B49853900D96E53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = macosx;
+				SWIFT_COMPILATION_MODE = wholemodule;
+			};
+			name = Release;
+		};
+		3613E2A42B49853900D96E53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = sidekick/sidekick.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"sidekick/Preview Content\"";
+				DEVELOPMENT_TEAM = W6H9VCXQLV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = sidekick/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekick;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		3613E2A52B49853900D96E53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = sidekick/sidekick.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"sidekick/Preview Content\"";
+				DEVELOPMENT_TEAM = W6H9VCXQLV;
+				ENABLE_HARDENED_RUNTIME = YES;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = sidekick/Info.plist;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekick;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		3613E2A72B49853900D96E53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6H9VCXQLV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekickTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sidekick.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/sidekick";
+			};
+			name = Debug;
+		};
+		3613E2A82B49853900D96E53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6H9VCXQLV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekickTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sidekick.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/sidekick";
+			};
+			name = Release;
+		};
+		3613E2AA2B49853900D96E53 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6H9VCXQLV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekickUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = sidekick;
+			};
+			name = Debug;
+		};
+		3613E2AB2B49853900D96E53 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = W6H9VCXQLV;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekickUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_TARGET_NAME = sidekick;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		3613E2792B49853800D96E53 /* Build configuration list for PBXProject "sidekick" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3613E2A12B49853900D96E53 /* Debug */,
+				3613E2A22B49853900D96E53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3613E2A32B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekick" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3613E2A42B49853900D96E53 /* Debug */,
+				3613E2A52B49853900D96E53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3613E2A62B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekickTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3613E2A72B49853900D96E53 /* Debug */,
+				3613E2A82B49853900D96E53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		3613E2A92B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekickUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3613E2AA2B49853900D96E53 /* Debug */,
+				3613E2AB2B49853900D96E53 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 3613E2762B49853800D96E53 /* Project object */;
+}
