@@ -6,7 +6,10 @@
 //
 
 import Foundation
+import Splash
 import SwiftUI
+import Highlighter
+
 
 public struct ChatMessage: Identifiable, Hashable {
   var content: String
@@ -27,25 +30,32 @@ struct Paragraph: Identifiable, Hashable {
 
 struct ChatMessageView: View {
   let chatMessage: ChatMessage
+    let finishedRendering: Bool
+  
   @State private var hasBeenCopied = false
   @State private var isHovering = false
   private var paragraphs: [Paragraph] = []
 
-  init(chatMessage: ChatMessage, hasBeenCopied: Bool = false, isHovering: Bool = false) {
+  init(
+    chatMessage: ChatMessage, finishedRendering: Bool = true, hasBeenCopied: Bool = false,
+    isHovering: Bool = false
+  ) {
     self.chatMessage = chatMessage
+      self.finishedRendering = finishedRendering
     self.hasBeenCopied = hasBeenCopied
     self.isHovering = isHovering
+    print("finishedRendering", finishedRendering)
+      
+    
 
     let splits = chatMessage.content.components(separatedBy: "```")
     if splits.count == 0 {
-
       self.paragraphs = [Paragraph(text: chatMessage.content, type: .TEXT)]
-
       return
     }
     self.paragraphs = splits.enumerated().map { (idx, text) in
       if idx % 2 == 1 {
-        return Paragraph(text: text, type: .CODE)
+        return Paragraph(text: ">>>" + text, type: .CODE)
       } else {
         return Paragraph(text: text, type: .TEXT)
       }
@@ -61,12 +71,11 @@ struct ChatMessageView: View {
           .foregroundStyle(.blue)
           .padding(.horizontal)
         Spacer()
-        if chatMessage.role == "assistant" && isHovering {
+        if chatMessage.role == "assistant" && isHovering && false {
           Button(
             action: {
               copyToClipboard(text: chatMessage.content)
               hasBeenCopied = true
-
             },
             label: {
               if hasBeenCopied {
@@ -83,7 +92,7 @@ struct ChatMessageView: View {
         VStack {
           ForEach(paragraphs) { paragraph in
             if paragraph.type == .CODE {
-              CodeBlock(text: paragraph.text)
+                CodeBlock(text: paragraph.text, highlightText: finishedRendering)
             } else {
               TextBlock(text: paragraph.text)
             }
@@ -111,41 +120,96 @@ struct ChatMessageView: View {
   }
 }
 
-struct CodeBlock: View {
-  let text: String
-  @State private var hasBeenCopied = false
 
-    var body: some View {
-        ZStack(alignment: .top) {
-            Text(text)
-                .font(.system(.body, design: .monospaced))
-                .frame(maxWidth: .infinity, alignment: .leading)
-                .foregroundStyle(.black.opacity(0.9))
-                .padding()
-                .background(.gray)
-                .textSelection(.enabled)
-                .cornerRadius(10)
-            HStack {
-                Spacer()
-                Button(
-                    action: {
-                        copyToClipboard(text: text)
-                        hasBeenCopied = true
-                        
-                    },
-                    label: {
-                        if hasBeenCopied {
-                            Image(systemName: "checkmark").foregroundStyle(.green)
-                            
-                        } else {
-                            Image(systemName: "clipboard").foregroundStyle(.black)
-                            
-                        }
-                    }).buttonStyle(.borderless)
-                .padding()
+class HighlightedTextModel: ObservableObject {
+    @Published var highlightedText: NSAttributedString = .init(string: "")
+    @Published var inputText = ""
+    @Published var hasBeenCopied = false
+    
+    private var copyMessageTimer: Timer?
+    
+    func highlightText() {
+        if let highlighter = Highlighter() {
+            highlighter.setTheme("tomorrow")
+            if let highlighted = highlighter.highlight(inputText, as: "swift") {
+                highlightedText = highlighted
+            } else {
+                print("Failed to highlight text")
             }
+        } else {
+            print("Failed to initialise highlighter")
         }
     }
+    
+    func copyCode() {
+        copyToClipboard(text: inputText)
+        hasBeenCopied = true
+        
+        copyMessageTimer?.invalidate()
+        let timer = Timer(timeInterval: 1, repeats: false, block: { _ in
+            self.hasBeenCopied = false
+        })
+        copyMessageTimer = timer
+        RunLoop.current.add(timer, forMode: .common)
+    }
+}
+
+
+struct CodeBlock: View {
+  let text: String
+    let highlightText: Bool
+  @ObservedObject var textModel = HighlightedTextModel()
+  
+    init(text: String, highlightText: Bool) {
+        self.text = text
+        textModel.inputText = text
+        print("highlighttext", highlightText)
+        if highlightText {
+            
+            textModel.highlightText()
+        }
+    }
+    
+
+  var body: some View {
+    ZStack(alignment: .top) {
+        if highlightText {
+            Text(AttributedString(textModel.highlightedText))
+                .textSelection(.enabled)
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+               .background(.black.opacity(0.5))
+               .cornerRadius(10)
+               
+        } else {
+            Text(text)
+                .textSelection(.enabled)
+                .padding()
+                .frame(maxWidth: .infinity, alignment: .leading)
+               .background(.black.opacity(0.5))
+               .cornerRadius(10)
+        }
+           
+      HStack {
+        Spacer()
+        Button(
+          action: {
+              textModel.copyCode()
+          },
+          label: {
+              if textModel.hasBeenCopied {
+              Image(systemName: "checkmark").foregroundStyle(.green)
+
+            } else {
+              Image(systemName: "clipboard").foregroundStyle(.black)
+
+            }
+          }
+        ).buttonStyle(.borderless)
+          .padding()
+      }
+    }
+  }
 }
 
 struct TextBlock: View {

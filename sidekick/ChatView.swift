@@ -65,25 +65,26 @@ struct ChatView: View {
               .foregroundColor(.white)
           }.padding(.top)
           Spacer()
-          if isLoading && chatMessages.count < 2 {
-            ProgressView().padding(.horizontal)
-          } else {
+          
             ScrollView {
               VStack {
                 ForEach(chatMessages) { chatMessage in
-                  ChatMessageView(chatMessage: chatMessage)
+                  ChatMessageView(chatMessage: chatMessage, finishedRendering: false)
                 }
-                if !loadingMessage.content.isEmpty {
-                  ChatMessageView(chatMessage: loadingMessage)
-                }
+                  if isLoading && chatMessages.count < 2 {
+                    ProgressView().padding(.horizontal)
+                  } else {
+                      if !loadingMessage.content.isEmpty {
+                          ChatMessageView(chatMessage: loadingMessage, finishedRendering: false)
+                      }
+                  }
               }
             }.defaultScrollAnchor(.bottom)
-          }
+          
           Spacer()
           VStack(alignment: .leading) {
-
             TextField("Enter text here...", text: $textInput)
-              .font(.title)
+                  .font(.title3)
               .padding()
               .onSubmit {
                 let prompt = textInput
@@ -96,9 +97,7 @@ struct ChatView: View {
                       WireChatMessage(content: message.content, role: message.role)
                     }),
                     callbackFn: { response in
-
                       loadingMessage.content += response
-
                       isLoading = false
                     },
                     completeFn: {
