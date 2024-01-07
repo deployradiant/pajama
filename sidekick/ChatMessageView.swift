@@ -132,7 +132,11 @@ class HighlightedTextModel: ObservableObject {
         if let highlighter = Highlighter() {
             highlighter.setTheme("tomorrow")
             let lines = inputText.split(separator: "\n")
-            
+            if let firstLine = lines.first {
+                if firstLine.with {
+                    
+                }
+            }
             
             
             if let highlighted = highlighter.highlight(inputText, as: "swift") {
