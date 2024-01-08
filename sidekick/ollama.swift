@@ -10,8 +10,8 @@ import Foundation
 import Network
 
 public struct WireChatMessage: Codable {
-    let content: String
-    let role: String
+  let content: String
+  let role: String
 }
 
 struct Response: Decodable {
@@ -19,7 +19,7 @@ struct Response: Decodable {
   let created_at: String
   let message: WireChatMessage
   let done: Bool
-    let total_duration: Int?
+  let total_duration: Int?
   let context: [Int]?
 }
 
@@ -41,11 +41,11 @@ class StreamProcessor: NSObject, URLSessionDataDelegate {
     dataBuffer.append(data)
     processBuffer()
   }
-    
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        completeFn()
-    }
-    
+
+  func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+    completeFn()
+  }
+
   func processBuffer() {
     // Find the range to the first newline character
     if let range = dataBuffer.range(of: Data("\n".utf8)) {
@@ -57,7 +57,7 @@ class StreamProcessor: NSObject, URLSessionDataDelegate {
           // Parse the JSON data
           let decoder = JSONDecoder()
           let response = try decoder.decode(Response.self, from: Data(line.utf8))
-            callbackFn(response.message.content)
+          callbackFn(response.message.content)
         } catch {
           print("Could not parse JSON: \(error)")
           print(line)
@@ -87,27 +87,25 @@ public func checkIfOllamaIsRunning(callbackFn: @escaping @Sendable (_: Bool) -> 
 }
 
 public func callLlm(
-  chatMessages: Array<WireChatMessage>, callbackFn: @escaping @Sendable (_: String) -> Void,
+  chatMessages: [WireChatMessage], callbackFn: @escaping @Sendable (_: String) -> Void,
   completeFn: @escaping @Sendable () -> Void
-) {
+) -> URLSessionDataTask? {
 
   let session = URLSession(
     configuration: .default,
     delegate: StreamProcessor(callbackFn: callbackFn, completeFn: completeFn), delegateQueue: nil)
-  guard let url = URL(string: "http://127.0.0.1:11434/api/chat") else { return }
+  guard let url = URL(string: "http://127.0.0.1:11434/api/chat") else { return nil }
   struct RequestOptions: Codable {
     let num_predict: Int
   }
-    
-    
 
   struct RequestBody: Codable {
-    let messages: Array<WireChatMessage>
+    let messages: [WireChatMessage]
     let model: String
-      let stream: Bool
+    let stream: Bool
   }
 
-    let requestBody = RequestBody(messages: chatMessages, model: "zephyr:latest", stream: true)
+  let requestBody = RequestBody(messages: chatMessages, model: "zephyr:latest", stream: true)
 
   var request = URLRequest(url: url)
   let body = try! JSONEncoder().encode(requestBody)
@@ -115,6 +113,7 @@ public func callLlm(
   request.httpMethod = "POST"
   request.httpBody = body
 
-    let task = session.dataTask(with: request)
+  let task = session.dataTask(with: request)
   task.resume()
+    return task
 }

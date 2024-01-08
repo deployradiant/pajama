@@ -18,7 +18,7 @@ struct ConnectionStatusView: View {
   @Binding var state: ConnectionStatus
 
   var body: some View {
-    HStack {
+      HStack {
       Spacer()
       Circle()
         .fill(
@@ -28,7 +28,7 @@ struct ConnectionStatusView: View {
       Text(self.getConnectionMessage())
         .font(.title3)
         .foregroundColor(.white)
-    }.padding(.top)
+    }
   }
 
   private func getDotColor() -> Color {

@@ -24,42 +24,50 @@ struct Paragraph: Identifiable, Hashable {
   let text: String
   let type: ParagraphType
   var codeLanguage: String? = nil
+  var highlightedText: NSAttributedString? = nil
   public let id: UUID = UUID()
 }
 
 struct ChatMessageView: View {
-  let chatMessage: ChatMessage
-  let finishedRendering: Bool
-
+  @Binding  var chatMessage: ChatMessage
+  @Binding  var finishedRendering: Bool
+  @State private var highlighter: Highlighter? = nil
+  
   @State private var hasBeenCopied = false
-  @State private var isHovering = false
-  private var paragraphs: [Paragraph] = []
+  @State private var paragraphs: [Paragraph] = []
 
-  init(
-    chatMessage: ChatMessage, finishedRendering: Bool = true, hasBeenCopied: Bool = false,
-    isHovering: Bool = false
-  ) {
-    self.chatMessage = chatMessage
-    self.finishedRendering = finishedRendering
-    self.hasBeenCopied = hasBeenCopied
-    self.isHovering = isHovering
-    let splits = chatMessage.content.components(separatedBy: "```")
-    if splits.count == 0 || !finishedRendering {
-      self.paragraphs = [Paragraph(text: chatMessage.content, type: .TEXT)]
-      return
+    func renderChatMessage() {
+        if (!finishedRendering) {
+            paragraphs = [Paragraph(text: chatMessage.content, type: .TEXT)]
+            return
+        }
+        let splits = chatMessage.content.components(separatedBy: "```")
+        if (splits.count == 1) {
+          paragraphs = [Paragraph(text: chatMessage.content, type: .TEXT)]
+          return
+        }
+          
+        if highlighter == nil {
+            highlighter = Highlighter()
+        }
+        highlighter?.setTheme("tomorrow")
+        print("calculating paragraphs")
+          
+          
+        paragraphs = splits.enumerated().map { (idx, text) in
+          if idx % 2 == 1 {
+              let (parsedText, lang) = parseCodeBlock(text: text)
+                
+              let highlightedText = highlighter?.highlight(parsedText, as: lang)
+              
+            return Paragraph(
+              text: parsedText.trimmingCharacters(in: .whitespacesAndNewlines), type: .CODE,
+              codeLanguage: lang, highlightedText: highlightedText)
+          } else {
+            return Paragraph(text: text.trimmingCharacters(in: .whitespacesAndNewlines), type: .TEXT)
+          }
+        }
     }
-    self.paragraphs = splits.enumerated().map { (idx, text) in
-
-      if idx % 2 == 1 {
-        let (parsedText, lang) = parseCodeBlock(text: text)
-        return Paragraph(
-          text: parsedText.trimmingCharacters(in: .whitespacesAndNewlines), type: .CODE,
-          codeLanguage: lang)
-      } else {
-        return Paragraph(text: text.trimmingCharacters(in: .whitespacesAndNewlines), type: .TEXT)
-      }
-    }
-  }
 
   var body: some View {
     VStack(alignment: .leading) {
@@ -70,30 +78,13 @@ struct ChatMessageView: View {
           .foregroundStyle(.blue)
           .padding(.horizontal)
         Spacer()
-        if chatMessage.role == "assistant" && isHovering && false {
-          Button(
-            action: {
-              copyToClipboard(text: chatMessage.content)
-              hasBeenCopied = true
-            },
-            label: {
-              if hasBeenCopied {
-                Image(systemName: "checkmark")
-                Text("Copied")
-              } else {
-                Image(systemName: "clipboard")
-                Text("Copy to clipboard")
-              }
-            })
-        }
       }
       ScrollView {
         VStack.init(alignment: .leading, spacing: 15) {
           ForEach(paragraphs) { paragraph in
             if paragraph.type == .CODE {
               CodeBlock(
-                text: paragraph.text, shouldHighlight: finishedRendering,
-                language: paragraph.codeLanguage)
+                text: paragraph.text,highlightedText: paragraph.highlightedText, lang: paragraph.codeLanguage )
             } else {
               TextBlock(text: paragraph.text)
             }
@@ -104,9 +95,6 @@ struct ChatMessageView: View {
     .padding()
     .background(.white.opacity(0.5))
     .cornerRadius(10)
-    .onHover(perform: { hovering in
-      isHovering = hovering
-    })
     .overlay(
       Rectangle()
         .stroke(.black.opacity(0.1), lineWidth: 1)
@@ -118,59 +106,25 @@ struct ChatMessageView: View {
     )
     .shadow(radius: 1)
     .padding(.horizontal)
+    .onChange(of: chatMessage) {
+        renderChatMessage()
+    }.onAppear(perform: renderChatMessage)
   }
 }
 
-class HighlightedTextModel: ObservableObject {
-  @Published var highlightedText: NSAttributedString = .init(string: "")
-  @Published var inputText = ""
-  @Published var hasBeenCopied = false
-
-  private let highlighter = Highlighter()
-  private var copyMessageTimer: Timer?
-
-  func highlightText(language: String?) -> Bool {
-    highlighter?.setTheme("tomorrow")
-    if let highlighted = highlighter?.highlight(inputText, as: language) {
-      highlightedText = highlighted
-      return true
-    } else {
-      print("Failed to highlight text")
-      return false
-    }
-  }
-
-  func copyCode() {
-    copyToClipboard(text: inputText)
-    hasBeenCopied = true
-
-    copyMessageTimer?.invalidate()
-    let timer = Timer(
-      timeInterval: 1, repeats: false,
-      block: { _ in
-        self.hasBeenCopied = false
-      })
-    copyMessageTimer = timer
-    RunLoop.current.add(timer, forMode: .common)
-  }
-}
 
 struct CodeBlock: View {
-  let text: String
-  let lang: String?
-  var shouldHighlight: Bool
-  @ObservedObject var textModel = HighlightedTextModel()
+    let text: String
+    let lang: String?
+    let highlightedText: NSAttributedString?
+    @State private var copyMessageTimer: Timer?
+    @State private var hasBeenCopied = false
 
-  init(text: String, shouldHighlight: Bool, language: String?) {
-    self.text = text
-    self.lang = language
-    self.shouldHighlight = shouldHighlight
-    textModel.inputText = text
-    if shouldHighlight {
-      let highlighted = textModel.highlightText(language: language)
-      self.shouldHighlight = highlighted
+    init(text: String, highlightedText: NSAttributedString?, lang: String?) {
+        self.text = text
+        self.highlightedText = highlightedText
+        self.lang = lang
     }
-  }
 
   var body: some View {
     VStack {
@@ -184,9 +138,9 @@ struct CodeBlock: View {
         }
         Spacer()
         Button(
-          action: textModel.copyCode,
+          action: copyCode,
           label: {
-            if textModel.hasBeenCopied {
+            if hasBeenCopied {
               Image(systemName: "checkmark").foregroundStyle(.green)
 
             } else {
@@ -195,8 +149,8 @@ struct CodeBlock: View {
           }
         ).buttonStyle(.borderless)
       }
-      if shouldHighlight {
-        Text(AttributedString(textModel.highlightedText))
+      if let highlighted = highlightedText {
+        Text(AttributedString(highlighted))
           .textSelection(.enabled)
           .padding()
           .frame(maxWidth: .infinity, alignment: .leading)
@@ -212,6 +166,20 @@ struct CodeBlock: View {
       }
     }
   }
+    
+    func copyCode() {
+      copyToClipboard(text: text)
+      hasBeenCopied = true
+
+      copyMessageTimer?.invalidate()
+      let timer = Timer(
+        timeInterval: 1, repeats: false,
+        block: { _ in
+          hasBeenCopied = false
+        })
+        self.copyMessageTimer = timer
+      RunLoop.current.add(timer, forMode: .common)
+    }
 }
 
 struct TextBlock: View {
@@ -254,9 +222,7 @@ func parseCodeBlock(text: String) -> (String, String?) {
 
   if let lineEndIndex = text.firstIndex(of: "\n") {
     if lineEndIndex != text.startIndex {
-
       lang = String(text[text.startIndex...text.index(before: lineEndIndex)])
-      print("start - line end index", text.startIndex, lineEndIndex)
       content.removeFirst(lang!.count)
     }
   }
