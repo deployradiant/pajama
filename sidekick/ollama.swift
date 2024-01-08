@@ -81,6 +81,7 @@ class StreamProcessor: NSObject, URLSessionDataDelegate {
 }
 
 public func callLlm(
+    model: String,
   chatMessages: [WireChatMessage], callbackFn: @escaping @Sendable (_: String) -> Void,
   completeFn: @escaping @Sendable () -> Void
 ) -> URLSessionDataTask? {
@@ -99,7 +100,7 @@ public func callLlm(
     let stream: Bool
   }
 
-  let requestBody = RequestBody(messages: chatMessages, model: "zephyr:latest", stream: true)
+  let requestBody = RequestBody(messages: chatMessages, model: model, stream: true)
 
   var request = URLRequest(url: url)
   let body = try! JSONEncoder().encode(requestBody)

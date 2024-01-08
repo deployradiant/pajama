@@ -13,7 +13,7 @@ import SwiftUI
 struct ChatView: View {
   @Binding var isPresented: Bool
   @State private var connectionState: ConnectionStatus = .CONNECTING
-  @State private var selectedModel: String?
+    @State private var selectedModel: String?
   @State private var textInput = ""
   @State private var loadingTask: URLSessionDataTask? = nil
   @State private var showSidebar = true
@@ -70,14 +70,16 @@ struct ChatView: View {
                 .font(.title3)
                 .foregroundColor(.white)
                 .border(.secondary)
+            
                 .onSubmit {
-                  if loadingTask != nil {
+                    if loadingTask != nil || selectedModel == nil {
                     return
                   }
                   let prompt = textInput
                   chatMessages.append(ChatMessage(content: prompt, role: "user"))
                   DispatchQueue.global(qos: .background).async {
                     loadingTask = callLlm(
+                      model: selectedModel!,
                       chatMessages: chatMessages.map({ message in
                         WireChatMessage(content: message.content, role: message.role)
                       }),
@@ -146,7 +148,7 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
   static var previews: some View {
-    ChatView(isPresented: .constant(true))
+      ChatView(isPresented: .constant(true))
       .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
       .preferredColorScheme(.dark)
   }
@@ -159,23 +161,29 @@ struct Sidebar: View {
   var body: some View {
     VStack(alignment: .leading) {
       Rectangle().frame(height: 1).opacity(0.5)
-      Text("Available models").padding(.horizontal)
+      Text("Available models").padding()
       Rectangle().frame(height: 1).opacity(0.5)
       List(models, selection: $selectedModel) { model in
         Text(model.name)
-      }.listStyle(.sidebar).scrollContentBackground(.hidden).background(.clear)
-
+      }.listStyle(.sidebar).scrollContentBackground(.hidden).background(.clear).onChange(of: selectedModel, {
+          if selectedModel == nil {
+              return
+          }
+          setSelectedModel(model: selectedModel!)
+      })
     }.onAppear(perform: {
       loadModels(callbackFn: setModels)
-        
-     
     })
   }
 
   @Sendable func setModels(response: ModelsResponse) {
     models = response.models
       if selectedModel == nil  {
-          selectedModel = models.first?.id
+          if let storedModel = getSelectedModel() {
+              selectedModel = storedModel
+          } else {
+              selectedModel = models.first?.id
+          }
       }
   }
 }

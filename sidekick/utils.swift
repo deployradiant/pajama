@@ -29,3 +29,13 @@ func runBashCommand(command: String) -> String? {
     
     return output
 }
+
+let SELECTED_MODEL_KEY = "SELECTED_MODEL_KEY"
+
+func setSelectedModel(model: String) {
+    UserDefaults.standard.setValue(model, forKey: SELECTED_MODEL_KEY)
+}
+
+func getSelectedModel() -> String? {
+    return UserDefaults.standard.string(forKey: SELECTED_MODEL_KEY)
+}
