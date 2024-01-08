@@ -13,7 +13,7 @@ import SwiftUI
 struct ChatView: View {
   @Binding var isPresented: Bool
   @State private var connectionState: ConnectionStatus = .CONNECTING
-    @State private var selectedModel: String?
+  @State private var selectedModel: String?
   @State private var textInput = ""
   @State private var loadingTask: URLSessionDataTask? = nil
   @State private var showSidebar = true
@@ -24,7 +24,7 @@ struct ChatView: View {
     ZStack(alignment: .top) {
       HStack(spacing: 0) {
         Sidebar(selectedModel: $selectedModel).frame(
-            maxWidth: showSidebar ? 200 : 0, maxHeight: .infinity
+          maxWidth: showSidebar ? 200 : 0, maxHeight: .infinity, alignment: .top
         ).background(.gray)
         ZStack {
           Rectangle()
@@ -121,25 +121,24 @@ struct ChatView: View {
         }
         .ignoresSafeArea()
       }
-        VStack {
-          Spacer(minLength: 5).fixedSize()
-          HStack(alignment: .top) {
-            Spacer(minLength: 70).fixedSize()
-            Button {
-                showSidebar = !showSidebar
-            } label: {
-              Image(systemName: "sidebar.left").imageScale(.large)
-            }.buttonStyle(.borderless)
-            ConnectionStatusView(state: $connectionState).padding(.horizontal)
-              .onAppear {
-                checkIfOllamaIsRunning { result in
-                  connectionState = if result { .CONNECTED } else { .ERROR }
-                }
+      VStack {
+        Spacer(minLength: 5).fixedSize()
+        HStack(alignment: .top) {
+          Spacer(minLength: 70).fixedSize()
+          Button {
+            showSidebar = !showSidebar
+          } label: {
+            Image(systemName: "sidebar.left").imageScale(.large)
+          }.buttonStyle(.borderless)
+          ConnectionStatusView(state: $connectionState).padding(.horizontal)
+            .onAppear {
+              checkIfOllamaIsRunning { result in
+                connectionState = if result { .CONNECTED } else { .ERROR }
               }
-          }
-        }.ignoresSafeArea()
+            }
+        }
+      }.ignoresSafeArea()
     }
-    
 
   }
 
@@ -156,21 +155,27 @@ struct ChatView_Previews: PreviewProvider {
 struct Sidebar: View {
   @Binding var selectedModel: String?
   @State private var models: [ModelResponse] = []
-    
+
   var body: some View {
-      VStack(alignment: .leading) {
-          Text("Available models").padding(.horizontal)
-        Rectangle().frame(width: .infinity, height: 2)
-        ForEach(models) { model in
-            Text(model.name)
-        }.padding(.horizontal)
-        
+    VStack(alignment: .leading) {
+      Rectangle().frame(height: 1).opacity(0.5)
+      Text("Available models").padding(.horizontal)
+      Rectangle().frame(height: 1).opacity(0.5)
+      List(models, selection: $selectedModel) { model in
+        Text(model.name)
+      }.listStyle(.sidebar).scrollContentBackground(.hidden).background(.clear)
+
     }.onAppear(perform: {
-        loadModels(callbackFn: setModels)
+      loadModels(callbackFn: setModels)
+        
+     
     })
   }
-    
-   @Sendable func setModels(response: ModelsResponse) {
-       models = response.models
-    }
+
+  @Sendable func setModels(response: ModelsResponse) {
+    models = response.models
+      if selectedModel == nil  {
+          selectedModel = models.first?.id
+      }
+  }
 }
