@@ -39,6 +39,7 @@ struct ChatView: View {
             .frame(maxWidth: .infinity, maxHeight: .infinity)
 
           VStack {
+            Spacer(minLength: 20).fixedSize()
             Spacer()
             if connectionState == .CONNECTING {
               ProgressView()
@@ -159,9 +160,13 @@ struct Sidebar: View {
   @State private var models: [ModelResponse] = []
 
   var body: some View {
-    VStack(alignment: .leading) {
+      VStack(alignment: .leading, spacing: 5) {
       Rectangle().frame(height: 1).opacity(0.5)
-      Text("Available models").padding()
+          HStack{
+              Text("Available models")
+              Spacer()
+              
+          }.padding(.horizontal)
       Rectangle().frame(height: 1).opacity(0.5)
       List(models, selection: $selectedModel) { model in
         Text(model.name)
