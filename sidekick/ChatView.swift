@@ -18,8 +18,9 @@ struct ChatView: View {
   @State private var loadingTask: URLSessionDataTask? = nil
   @State private var showSidebar = true
   @State private var chatMessages: [ChatMessage] = []
+    @FocusState private var textInputFocused: Bool
   @State private var loadingMessage: ChatMessage = ChatMessage(content: "", role: "assistant")
-
+    
   var body: some View {
     ZStack(alignment: .top) {
       HStack(spacing: 0) {
@@ -44,20 +45,23 @@ struct ChatView: View {
             if connectionState == .CONNECTING {
               ProgressView()
             } else if connectionState == .CONNECTED {
-              ScrollView {
-                VStack(alignment: .center, spacing: 20) {
-                  ForEach(chatMessages) { chatMessage in
-                    ChatMessageView(
-                      chatMessage: .constant(chatMessage), finishedRendering: .constant(true))
-                  }
-                  if !loadingMessage.content.isEmpty {
-                    ChatMessageView(
-                      chatMessage: $loadingMessage, finishedRendering: .constant(false))
-                  } else if loadingTask != nil {
-                    ProgressView().padding(.horizontal)
-                  }
+                ScrollViewReader { viewReader in
+                    ScrollView {
+                        VStack(alignment: .center, spacing: 20) {
+                            ForEach(chatMessages) { chatMessage in
+                                ChatMessageView(
+                                    chatMessage: .constant(chatMessage), finishedRendering: .constant(true))
+                            }
+                            if !loadingMessage.content.isEmpty {
+                                ChatMessageView(
+                                    chatMessage: $loadingMessage, finishedRendering: .constant(false))
+                            } else if loadingTask != nil {
+                                ProgressView().padding(.horizontal)
+                            }
+                        }
+                    }.defaultScrollAnchor(.bottom)
+                    
                 }
-              }.defaultScrollAnchor(.bottom)
               Spacer()
               if loadingTask != nil {
                 Button {
@@ -69,6 +73,12 @@ struct ChatView: View {
               }
               TextField("Enter text here...", text: $textInput, axis: .vertical)
                 .font(.title3)
+                .focused($textInputFocused, equals: true)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                                self.textInputFocused = true
+                              }
+                            }
                 .foregroundColor(.white)
                 .border(.secondary)
                 .onSubmit {
@@ -127,11 +137,18 @@ struct ChatView: View {
         Spacer(minLength: 5).fixedSize()
         HStack(alignment: .top) {
           Spacer(minLength: 70).fixedSize()
-          Button {
-            showSidebar = !showSidebar
-          } label: {
-            Image(systemName: "sidebar.left").imageScale(.large)
-          }.buttonStyle(.borderless)
+            HStack {
+                Button {
+                    showSidebar = !showSidebar
+                } label: {
+                    Image(systemName: "sidebar.left").imageScale(.large)
+                }.buttonStyle(.borderless)
+                Button {
+                    chatMessages = []
+                } label: {
+                    Image(systemName: "trash.circle").imageScale(.large)
+                }.buttonStyle(.borderless)
+            }
           ConnectionStatusView(state: $connectionState).padding(.horizontal)
             .onAppear {
               checkIfOllamaIsRunning { result in
