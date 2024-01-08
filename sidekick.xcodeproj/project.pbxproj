@@ -17,6 +17,8 @@
 		3675D7212B4A861400943E9D /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3675D7202B4A861400943E9D /* ChatMessageView.swift */; };
 		3675D7232B4A867500943E9D /* ollama.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3675D7222B4A867500943E9D /* ollama.swift */; };
 		368C327D2B4B53AE00324D9D /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 368C327C2B4B53AE00324D9D /* Highlighter */; };
+		368C327F2B4BAB4F00324D9D /* utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C327E2B4BAB4F00324D9D /* utils.swift */; };
+		368C32812B4BAB7400324D9D /* ConnectionStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 368C32802B4BAB7400324D9D /* ConnectionStatusView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +53,8 @@
 		3613E34F2B49DA4500D96E53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3675D7202B4A861400943E9D /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
 		3675D7222B4A867500943E9D /* ollama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ollama.swift; sourceTree = "<group>"; };
+		368C327E2B4BAB4F00324D9D /* utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = utils.swift; sourceTree = "<group>"; };
+		368C32802B4BAB7400324D9D /* ConnectionStatusView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionStatusView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -110,6 +114,8 @@
 				3613E2872B49853900D96E53 /* Preview Content */,
 				3675D7202B4A861400943E9D /* ChatMessageView.swift */,
 				3675D7222B4A867500943E9D /* ollama.swift */,
+				368C327E2B4BAB4F00324D9D /* utils.swift */,
+				368C32802B4BAB7400324D9D /* ConnectionStatusView.swift */,
 			);
 			path = sidekick;
 			sourceTree = "<group>";
@@ -275,9 +281,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				368C327F2B4BAB4F00324D9D /* utils.swift in Sources */,
 				3675D7232B4A867500943E9D /* ollama.swift in Sources */,
 				3675D7212B4A861400943E9D /* ChatMessageView.swift in Sources */,
 				3613E2842B49853800D96E53 /* ChatView.swift in Sources */,
+				368C32812B4BAB7400324D9D /* ConnectionStatusView.swift in Sources */,
 				3613E2822B49853800D96E53 /* sidekickApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

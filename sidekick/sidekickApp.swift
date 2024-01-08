@@ -18,7 +18,7 @@ struct sidekickApp: App {
     var body: some Scene {
         WindowGroup {
             ZStack {
-                ChatView(message: "Chat with Ollama", isPresented: .constant(true))
+                ChatView(isPresented: .constant(true))
             }.background(TransparentWindow())
             
         }
