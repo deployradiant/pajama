@@ -14,13 +14,24 @@ public struct WireChatMessage: Codable {
   let role: String
 }
 
-struct Response: Decodable {
+struct ChatResponse: Decodable {
   let model: String
   let created_at: String
   let message: WireChatMessage
   let done: Bool
   let total_duration: Int?
   let context: [Int]?
+}
+
+public struct ModelsResponse: Decodable {
+  let models: [ModelResponse]
+}
+
+public struct ModelResponse: Identifiable, Decodable {
+  let name: String
+  let modified_at: String
+  let size: Int
+  public var id: String { name }
 }
 
 class StreamProcessor: NSObject, URLSessionDataDelegate {
@@ -56,7 +67,7 @@ class StreamProcessor: NSObject, URLSessionDataDelegate {
         do {
           // Parse the JSON data
           let decoder = JSONDecoder()
-          let response = try decoder.decode(Response.self, from: Data(line.utf8))
+          let response = try decoder.decode(ChatResponse.self, from: Data(line.utf8))
           callbackFn(response.message.content)
         } catch {
           print("Could not parse JSON: \(error)")
@@ -67,23 +78,6 @@ class StreamProcessor: NSObject, URLSessionDataDelegate {
       processBuffer()  // Recursively process the next line
     }
   }
-}
-
-public func checkIfOllamaIsRunning(callbackFn: @escaping @Sendable (_: Bool) -> Void) {
-  let session = URLSession.shared
-
-  guard let baseUrl = URL(string: "http://127.0.0.1:11434") else {
-    callbackFn(false)
-    return
-  }
-  let checkTask = session.dataTask(with: baseUrl) { data, response, error in
-    guard let data = data else {
-      callbackFn(false)
-      return
-    }
-    callbackFn(String(data: data, encoding: .utf8)! == "Ollama is running")
-  }
-  checkTask.resume()
 }
 
 public func callLlm(
@@ -115,5 +109,43 @@ public func callLlm(
 
   let task = session.dataTask(with: request)
   task.resume()
-    return task
+  return task
+}
+
+public func checkIfOllamaIsRunning(callbackFn: @escaping @Sendable (_: Bool) -> Void) {
+  let session = URLSession.shared
+
+  guard let baseUrl = URL(string: "http://127.0.0.1:11434") else {
+    callbackFn(false)
+    return
+  }
+  let checkTask = session.dataTask(with: baseUrl) { data, response, error in
+    guard let data = data else {
+      callbackFn(false)
+      return
+    }
+    callbackFn(String(data: data, encoding: .utf8)! == "Ollama is running")
+  }
+  checkTask.resume()
+}
+
+public func loadModels(callbackFn: @escaping @Sendable (_: ModelsResponse) -> Void) {
+  let session = URLSession.shared
+  guard let baseUrl = URL(string: "http://127.0.0.1:11434/api/tags") else {
+    return
+  }
+  let loadModelsTask = session.dataTask(with: baseUrl) { data, response, error in
+    guard let data = data else {
+      return
+    }
+
+    do {
+      let models = try JSONDecoder().decode(ModelsResponse.self, from: data)
+      callbackFn(models)
+    } catch {
+      print("Failed to parsee models JSON")
+      print(error)
+    }
+  }
+  loadModelsTask.resume()
 }

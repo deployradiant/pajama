@@ -13,17 +13,17 @@ import SwiftUI
 struct ChatView: View {
   @Binding var isPresented: Bool
   @State private var connectionState: ConnectionStatus = .CONNECTING
-
+    @State private var selectedModel: String?
   @State private var textInput = ""
   @State private var loadingTask: URLSessionDataTask? = nil
-    @State private var showSidebar = true
+  @State private var showSidebar = true
   @State private var chatMessages: [ChatMessage] = []
   @State private var loadingMessage: ChatMessage = ChatMessage(content: "", role: "assistant")
 
   var body: some View {
     ZStack(alignment: .top) {
       HStack(spacing: 0) {
-        Sidebar().frame(
+        Sidebar(selectedModel: $selectedModel).frame(
             maxWidth: showSidebar ? 200 : 0, maxHeight: .infinity
         ).background(.gray)
         ZStack {
@@ -154,11 +154,23 @@ struct ChatView_Previews: PreviewProvider {
 }
 
 struct Sidebar: View {
-  
-
+  @Binding var selectedModel: String?
+  @State private var models: [ModelResponse] = []
+    
   var body: some View {
-    VStack {
-      Text("This is a sidebar")
-    }
+      VStack(alignment: .leading) {
+          Text("Available models").padding(.horizontal)
+        Rectangle().frame(width: .infinity, height: 2)
+        ForEach(models) { model in
+            Text(model.name)
+        }.padding(.horizontal)
+        
+    }.onAppear(perform: {
+        loadModels(callbackFn: setModels)
+    })
   }
+    
+   @Sendable func setModels(response: ModelsResponse) {
+       models = response.models
+    }
 }
