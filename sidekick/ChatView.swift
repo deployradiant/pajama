@@ -13,7 +13,7 @@ import SwiftUI
 struct ChatView: View {
   @Binding var isPresented: Bool
   @State private var connectionState: ConnectionStatus = .CONNECTING
-    @State private var selectedModel: String?
+  @State private var selectedModel: String?
   @State private var textInput = ""
   @State private var loadingTask: URLSessionDataTask? = nil
   @State private var showSidebar = true
@@ -71,9 +71,8 @@ struct ChatView: View {
                 .font(.title3)
                 .foregroundColor(.white)
                 .border(.secondary)
-            
                 .onSubmit {
-                    if loadingTask != nil || selectedModel == nil {
+                  if loadingTask != nil || selectedModel == nil {
                     return
                   }
                   let prompt = textInput
@@ -149,7 +148,7 @@ struct ChatView: View {
 
 struct ChatView_Previews: PreviewProvider {
   static var previews: some View {
-      ChatView(isPresented: .constant(true))
+    ChatView(isPresented: .constant(true))
       .previewDevice(PreviewDevice(rawValue: "iPhone 12"))
       .preferredColorScheme(.dark)
   }
@@ -157,38 +156,91 @@ struct ChatView_Previews: PreviewProvider {
 
 struct Sidebar: View {
   @Binding var selectedModel: String?
+  @State var isPullingModel: Bool = false
   @State private var models: [ModelResponse] = []
 
   var body: some View {
-      VStack(alignment: .leading, spacing: 5) {
+    VStack(alignment: .leading, spacing: 5) {
       Rectangle().frame(height: 1).opacity(0.5)
-          HStack{
-              Text("Available models")
-              Spacer()
-              
-          }.padding(.horizontal)
+      HStack {
+        Text("Available models")
+        Spacer()
+        if isPullingModel {
+          ProgressView()
+        } else {
+          PullModelView(isPullingModel: $isPullingModel)
+        }
+      }.padding(.horizontal)
       Rectangle().frame(height: 1).opacity(0.5)
       List(models, selection: $selectedModel) { model in
         Text(model.name)
-      }.listStyle(.sidebar).scrollContentBackground(.hidden).background(.clear).onChange(of: selectedModel, {
+      }.listStyle(.sidebar).scrollContentBackground(.hidden).background(.clear).onChange(
+        of: selectedModel,
+        {
           if selectedModel == nil {
-              return
+            return
           }
           setSelectedModel(model: selectedModel!)
-      })
+        })
     }.onAppear(perform: {
       loadModels(callbackFn: setModels)
-    })
+    }).onChange(
+      of: isPullingModel, initial: false,
+      {
+        if isPullingModel {
+          return
+        }
+        loadModels(callbackFn: setModels)
+      })
   }
 
   @Sendable func setModels(response: ModelsResponse) {
     models = response.models
-      if selectedModel == nil  {
-          if let storedModel = getSelectedModel() {
-              selectedModel = storedModel
-          } else {
-              selectedModel = models.first?.id
-          }
+    if selectedModel == nil {
+      if let storedModel = getSelectedModel() {
+        selectedModel = storedModel
+      } else {
+        selectedModel = models.first?.id
       }
+    }
+  }
+}
+
+struct PullModelView: View {
+  @State var showingPopover: Bool = false
+  @State var modelToPullName: String = ""
+  @Binding var isPullingModel: Bool
+
+  var body: some View {
+    Button(
+      action: {
+        showingPopover = true
+      },
+      label: {
+        Image(systemName: "plus")
+      }
+    ).buttonStyle(.borderless)
+      .popover(isPresented: $showingPopover) {
+        VStack {
+          TextField("Model name...", text: $modelToPullName).onSubmit {
+            onPullModel()
+          }
+          Button("Pull model") {
+            onPullModel()
+          }
+        }.padding()
+      }
+  }
+
+  func onPullModel() {
+    if modelToPullName.isEmpty {
+      return
+    }
+    isPullingModel = true
+    DispatchQueue.global(qos: .background).async {
+      pullModel(modelName: modelToPullName) { success in
+        isPullingModel = false
+      }
+    }
   }
 }

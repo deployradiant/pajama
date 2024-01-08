@@ -150,3 +150,37 @@ public func loadModels(callbackFn: @escaping @Sendable (_: ModelsResponse) -> Vo
   }
   loadModelsTask.resume()
 }
+
+public func pullModel(modelName: String, callbackFn: @escaping @Sendable (_: Bool) -> Void) {
+    let session = URLSession.shared
+    guard let url = URL(string: "http://127.0.0.1:11434/api/pull") else {
+      return
+    }
+    struct RequestBody: Codable {
+      let name: String
+    }
+    print("model name", modelName)
+
+    let requestBody = RequestBody(name: modelName)
+    var request = URLRequest(url: url)
+    request.addValue("application/json", forHTTPHeaderField: "content-type")
+    request.httpMethod = "POST"
+    request.httpBody = try! JSONEncoder().encode(requestBody)
+
+    let pullTask = session.dataTask(with: request) { data, response, error in
+        if error != nil {
+            print("Pull failed")
+            print(error!)
+            callbackFn(false)
+        } else {
+            print("Got a return from pull")
+            if let data = data  {
+                print(String(data: data, encoding: .utf8)!)
+            }
+            callbackFn(true)
+        }
+        
+    }
+    
+    pullTask.resume()
+}
