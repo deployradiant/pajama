@@ -245,7 +245,7 @@ struct PullModelView: View {
           Button("Pull model") {
             onPullModel()
           }
-        }.padding()
+        }.padding().frame(width: 200)
       }
   }
 
