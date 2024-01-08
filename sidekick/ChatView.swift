@@ -67,7 +67,7 @@ struct ChatView: View {
           Spacer()
           
             ScrollView {
-              VStack {
+                VStack(alignment: .center, spacing: 20) {
                 ForEach(chatMessages) { chatMessage in
                   ChatMessageView(chatMessage: chatMessage, finishedRendering: true)
                 }
