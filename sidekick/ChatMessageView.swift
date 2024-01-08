@@ -87,10 +87,10 @@ struct ChatMessageView: View {
             }
           }
         }
-      }
+      }.defaultScrollAnchor(.bottom)
     }
     .padding()
-    .background(.white.opacity(0.5))
+    .background(.white)
     .cornerRadius(10)
     .overlay(
       Rectangle()
