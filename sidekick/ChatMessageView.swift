@@ -51,9 +51,6 @@ struct ChatMessageView: View {
             highlighter = Highlighter()
         }
         highlighter?.setTheme("tomorrow")
-        print("calculating paragraphs")
-          
-          
         paragraphs = splits.enumerated().map { (idx, text) in
           if idx % 2 == 1 {
               let (parsedText, lang) = parseCodeBlock(text: text)
@@ -183,9 +180,15 @@ struct CodeBlock: View {
 }
 
 struct TextBlock: View {
-  let formattedText: AttributedString
+  public var text: String
+  @State var formattedText: AttributedString = AttributedString()
+    
     
     init(text: String) {
+        self.text = text
+    }
+    
+    func renderText() {
         let regex = try! NSRegularExpression(pattern: "`(.*?)`", options: [])
         let attributedString = NSMutableAttributedString(string: text)
 
@@ -207,7 +210,9 @@ struct TextBlock: View {
       .padding(.horizontal)
       .background(.clear)
       .textSelection(.enabled)
+      .onAppear(perform: renderText).onChange(of: text, renderText)
   }
+  
 }
 
 func copyToClipboard(text: String) {
