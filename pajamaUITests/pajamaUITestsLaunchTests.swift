@@ -1,13 +1,13 @@
 //
-//  sidekickUITestsLaunchTests.swift
-//  sidekickUITests
+//  pajamaUITestsLaunchTests.swift
+//  pajamaUITests
 //
 //  Created by Jakob Frick on 06/01/2024.
 //
 
 import XCTest
 
-final class sidekickUITestsLaunchTests: XCTestCase {
+final class pajamaUITestsLaunchTests: XCTestCase {
 
     override class var runsForEachTargetApplicationUIConfiguration: Bool {
         true

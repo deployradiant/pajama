@@ -1,8 +1,8 @@
 //
 //  sidekickApp.swift
-//  sidekick
+//  pajama
 //
-//  Created by Jakob Frick on 06/01/2024.
+//  Created by Jakob Frick @ Radiant AI on 06/01/2024.
 //
 
 import AppKit
@@ -10,7 +10,7 @@ import SwiftUI
 
 
 @main
-struct sidekickApp: App {
+struct pajamaApp: App {
     @State var window : NSWindow?
     
    

@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		3613E2822B49853800D96E53 /* sidekickApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E2812B49853800D96E53 /* sidekickApp.swift */; };
+		3613E2822B49853800D96E53 /* pajamaApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E2812B49853800D96E53 /* pajamaApp.swift */; };
 		3613E2842B49853800D96E53 /* ChatView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E2832B49853800D96E53 /* ChatView.swift */; };
 		3613E2862B49853900D96E53 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3613E2852B49853900D96E53 /* Assets.xcassets */; };
 		3613E2892B49853900D96E53 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3613E2882B49853900D96E53 /* Preview Assets.xcassets */; };
-		3613E2942B49853900D96E53 /* sidekickTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E2932B49853900D96E53 /* sidekickTests.swift */; };
-		3613E29E2B49853900D96E53 /* sidekickUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E29D2B49853900D96E53 /* sidekickUITests.swift */; };
-		3613E2A02B49853900D96E53 /* sidekickUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E29F2B49853900D96E53 /* sidekickUITestsLaunchTests.swift */; };
+		3613E2942B49853900D96E53 /* pajamaTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E2932B49853900D96E53 /* pajamaTests.swift */; };
+		3613E29E2B49853900D96E53 /* pajamaUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E29D2B49853900D96E53 /* pajamaUITests.swift */; };
+		3613E2A02B49853900D96E53 /* pajamaUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3613E29F2B49853900D96E53 /* pajamaUITestsLaunchTests.swift */; };
 		3675D7212B4A861400943E9D /* ChatMessageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3675D7202B4A861400943E9D /* ChatMessageView.swift */; };
 		3675D7232B4A867500943E9D /* ollama.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3675D7222B4A867500943E9D /* ollama.swift */; };
 		368C327D2B4B53AE00324D9D /* Highlighter in Frameworks */ = {isa = PBXBuildFile; productRef = 368C327C2B4B53AE00324D9D /* Highlighter */; };
@@ -39,17 +39,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		3613E27E2B49853800D96E53 /* sidekick.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = sidekick.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		3613E2812B49853800D96E53 /* sidekickApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickApp.swift; sourceTree = "<group>"; };
+		3613E27E2B49853800D96E53 /* pajama.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = pajama.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		3613E2812B49853800D96E53 /* pajamaApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pajamaApp.swift; sourceTree = "<group>"; };
 		3613E2832B49853800D96E53 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		3613E2852B49853900D96E53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3613E2882B49853900D96E53 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		3613E28A2B49853900D96E53 /* sidekick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = sidekick.entitlements; sourceTree = "<group>"; };
-		3613E28F2B49853900D96E53 /* sidekickTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sidekickTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3613E2932B49853900D96E53 /* sidekickTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickTests.swift; sourceTree = "<group>"; };
-		3613E2992B49853900D96E53 /* sidekickUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = sidekickUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		3613E29D2B49853900D96E53 /* sidekickUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickUITests.swift; sourceTree = "<group>"; };
-		3613E29F2B49853900D96E53 /* sidekickUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = sidekickUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		3613E28F2B49853900D96E53 /* pajamaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pajamaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3613E2932B49853900D96E53 /* pajamaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pajamaTests.swift; sourceTree = "<group>"; };
+		3613E2992B49853900D96E53 /* pajamaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pajamaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3613E29D2B49853900D96E53 /* pajamaUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pajamaUITests.swift; sourceTree = "<group>"; };
+		3613E29F2B49853900D96E53 /* pajamaUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pajamaUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		3613E34F2B49DA4500D96E53 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		3675D7202B4A861400943E9D /* ChatMessageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatMessageView.swift; sourceTree = "<group>"; };
 		3675D7222B4A867500943E9D /* ollama.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ollama.swift; sourceTree = "<group>"; };
@@ -86,9 +86,9 @@
 		3613E2752B49853800D96E53 = {
 			isa = PBXGroup;
 			children = (
-				3613E2802B49853800D96E53 /* sidekick */,
-				3613E2922B49853900D96E53 /* sidekickTests */,
-				3613E29C2B49853900D96E53 /* sidekickUITests */,
+				3613E2802B49853800D96E53 /* pajama */,
+				3613E2922B49853900D96E53 /* pajamaTests */,
+				3613E29C2B49853900D96E53 /* pajamaUITests */,
 				3613E27F2B49853800D96E53 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -96,18 +96,18 @@
 		3613E27F2B49853800D96E53 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				3613E27E2B49853800D96E53 /* sidekick.app */,
-				3613E28F2B49853900D96E53 /* sidekickTests.xctest */,
-				3613E2992B49853900D96E53 /* sidekickUITests.xctest */,
+				3613E27E2B49853800D96E53 /* pajama.app */,
+				3613E28F2B49853900D96E53 /* pajamaTests.xctest */,
+				3613E2992B49853900D96E53 /* pajamaUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		3613E2802B49853800D96E53 /* sidekick */ = {
+		3613E2802B49853800D96E53 /* pajama */ = {
 			isa = PBXGroup;
 			children = (
 				3613E34F2B49DA4500D96E53 /* Info.plist */,
-				3613E2812B49853800D96E53 /* sidekickApp.swift */,
+				3613E2812B49853800D96E53 /* pajamaApp.swift */,
 				3613E2832B49853800D96E53 /* ChatView.swift */,
 				3613E2852B49853900D96E53 /* Assets.xcassets */,
 				3613E28A2B49853900D96E53 /* sidekick.entitlements */,
@@ -117,7 +117,7 @@
 				368C327E2B4BAB4F00324D9D /* utils.swift */,
 				368C32802B4BAB7400324D9D /* ConnectionStatusView.swift */,
 			);
-			path = sidekick;
+			path = pajama;
 			sourceTree = "<group>";
 		};
 		3613E2872B49853900D96E53 /* Preview Content */ = {
@@ -128,29 +128,29 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		3613E2922B49853900D96E53 /* sidekickTests */ = {
+		3613E2922B49853900D96E53 /* pajamaTests */ = {
 			isa = PBXGroup;
 			children = (
-				3613E2932B49853900D96E53 /* sidekickTests.swift */,
+				3613E2932B49853900D96E53 /* pajamaTests.swift */,
 			);
-			path = sidekickTests;
+			path = pajamaTests;
 			sourceTree = "<group>";
 		};
-		3613E29C2B49853900D96E53 /* sidekickUITests */ = {
+		3613E29C2B49853900D96E53 /* pajamaUITests */ = {
 			isa = PBXGroup;
 			children = (
-				3613E29D2B49853900D96E53 /* sidekickUITests.swift */,
-				3613E29F2B49853900D96E53 /* sidekickUITestsLaunchTests.swift */,
+				3613E29D2B49853900D96E53 /* pajamaUITests.swift */,
+				3613E29F2B49853900D96E53 /* pajamaUITestsLaunchTests.swift */,
 			);
-			path = sidekickUITests;
+			path = pajamaUITests;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		3613E27D2B49853800D96E53 /* sidekick */ = {
+		3613E27D2B49853800D96E53 /* pajama */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3613E2A32B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekick" */;
+			buildConfigurationList = 3613E2A32B49853900D96E53 /* Build configuration list for PBXNativeTarget "pajama" */;
 			buildPhases = (
 				3613E27A2B49853800D96E53 /* Sources */,
 				3613E27B2B49853800D96E53 /* Frameworks */,
@@ -160,17 +160,17 @@
 			);
 			dependencies = (
 			);
-			name = sidekick;
+			name = pajama;
 			packageProductDependencies = (
 				368C327C2B4B53AE00324D9D /* Highlighter */,
 			);
 			productName = sidekick;
-			productReference = 3613E27E2B49853800D96E53 /* sidekick.app */;
+			productReference = 3613E27E2B49853800D96E53 /* pajama.app */;
 			productType = "com.apple.product-type.application";
 		};
-		3613E28E2B49853900D96E53 /* sidekickTests */ = {
+		3613E28E2B49853900D96E53 /* pajamaTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3613E2A62B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekickTests" */;
+			buildConfigurationList = 3613E2A62B49853900D96E53 /* Build configuration list for PBXNativeTarget "pajamaTests" */;
 			buildPhases = (
 				3613E28B2B49853900D96E53 /* Sources */,
 				3613E28C2B49853900D96E53 /* Frameworks */,
@@ -181,14 +181,14 @@
 			dependencies = (
 				3613E2912B49853900D96E53 /* PBXTargetDependency */,
 			);
-			name = sidekickTests;
+			name = pajamaTests;
 			productName = sidekickTests;
-			productReference = 3613E28F2B49853900D96E53 /* sidekickTests.xctest */;
+			productReference = 3613E28F2B49853900D96E53 /* pajamaTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3613E2982B49853900D96E53 /* sidekickUITests */ = {
+		3613E2982B49853900D96E53 /* pajamaUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 3613E2A92B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekickUITests" */;
+			buildConfigurationList = 3613E2A92B49853900D96E53 /* Build configuration list for PBXNativeTarget "pajamaUITests" */;
 			buildPhases = (
 				3613E2952B49853900D96E53 /* Sources */,
 				3613E2962B49853900D96E53 /* Frameworks */,
@@ -199,9 +199,9 @@
 			dependencies = (
 				3613E29B2B49853900D96E53 /* PBXTargetDependency */,
 			);
-			name = sidekickUITests;
+			name = pajamaUITests;
 			productName = sidekickUITests;
-			productReference = 3613E2992B49853900D96E53 /* sidekickUITests.xctest */;
+			productReference = 3613E2992B49853900D96E53 /* pajamaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -227,7 +227,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 3613E2792B49853800D96E53 /* Build configuration list for PBXProject "sidekick" */;
+			buildConfigurationList = 3613E2792B49853800D96E53 /* Build configuration list for PBXProject "pajama" */;
 			compatibilityVersion = "Xcode 14.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -243,9 +243,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				3613E27D2B49853800D96E53 /* sidekick */,
-				3613E28E2B49853900D96E53 /* sidekickTests */,
-				3613E2982B49853900D96E53 /* sidekickUITests */,
+				3613E27D2B49853800D96E53 /* pajama */,
+				3613E28E2B49853900D96E53 /* pajamaTests */,
+				3613E2982B49853900D96E53 /* pajamaUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -286,7 +286,7 @@
 				3675D7212B4A861400943E9D /* ChatMessageView.swift in Sources */,
 				3613E2842B49853800D96E53 /* ChatView.swift in Sources */,
 				368C32812B4BAB7400324D9D /* ConnectionStatusView.swift in Sources */,
-				3613E2822B49853800D96E53 /* sidekickApp.swift in Sources */,
+				3613E2822B49853800D96E53 /* pajamaApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -294,7 +294,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3613E2942B49853900D96E53 /* sidekickTests.swift in Sources */,
+				3613E2942B49853900D96E53 /* pajamaTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -302,8 +302,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3613E2A02B49853900D96E53 /* sidekickUITestsLaunchTests.swift in Sources */,
-				3613E29E2B49853900D96E53 /* sidekickUITests.swift in Sources */,
+				3613E2A02B49853900D96E53 /* pajamaUITestsLaunchTests.swift in Sources */,
+				3613E29E2B49853900D96E53 /* pajamaUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -312,12 +312,12 @@
 /* Begin PBXTargetDependency section */
 		3613E2912B49853900D96E53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3613E27D2B49853800D96E53 /* sidekick */;
+			target = 3613E27D2B49853800D96E53 /* pajama */;
 			targetProxy = 3613E2902B49853900D96E53 /* PBXContainerItemProxy */;
 		};
 		3613E29B2B49853900D96E53 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 3613E27D2B49853800D96E53 /* sidekick */;
+			target = 3613E27D2B49853800D96E53 /* pajama */;
 			targetProxy = 3613E29A2B49853900D96E53 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -453,17 +453,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = sidekick/sidekick.entitlements;
+				CODE_SIGN_ENTITLEMENTS = pajama/pajama.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"sidekick/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"pajama/Preview Content\"";
 				DEVELOPMENT_TEAM = W6H9VCXQLV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = sidekick/Info.plist;
+				INFOPLIST_FILE = pajama/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Pajama;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
@@ -472,8 +475,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekick;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.pajama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -484,17 +488,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
-				CODE_SIGN_ENTITLEMENTS = sidekick/sidekick.entitlements;
+				CODE_SIGN_ENTITLEMENTS = pajama/pajama.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = YES;
-				DEVELOPMENT_ASSET_PATHS = "\"sidekick/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"pajama/Preview Content\"";
 				DEVELOPMENT_TEAM = W6H9VCXQLV;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = sidekick/Info.plist;
+				INFOPLIST_FILE = pajama/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = Pajama;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
@@ -503,8 +510,9 @@
 					"@executable_path/../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekick;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.pajama;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 			};
@@ -520,13 +528,15 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = W6H9VCXQLV;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekickTests;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.pajamaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sidekick.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/sidekick";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pajama.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/pajama";
 			};
 			name = Debug;
 		};
@@ -540,13 +550,15 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = W6H9VCXQLV;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
 				MACOSX_DEPLOYMENT_TARGET = 14.0;
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekickTests;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.pajamaTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/sidekick.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/sidekick";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/pajama.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/pajama";
 			};
 			name = Release;
 		};
@@ -559,8 +571,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = W6H9VCXQLV;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekickUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.pajamaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -577,8 +591,10 @@
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_TEAM = W6H9VCXQLV;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
+				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.sidekickUITests;
+				PRODUCT_BUNDLE_IDENTIFIER = radiant.ai.pajamaUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
@@ -589,7 +605,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		3613E2792B49853800D96E53 /* Build configuration list for PBXProject "sidekick" */ = {
+		3613E2792B49853800D96E53 /* Build configuration list for PBXProject "pajama" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3613E2A12B49853900D96E53 /* Debug */,
@@ -598,7 +614,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3613E2A32B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekick" */ = {
+		3613E2A32B49853900D96E53 /* Build configuration list for PBXNativeTarget "pajama" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3613E2A42B49853900D96E53 /* Debug */,
@@ -607,7 +623,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3613E2A62B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekickTests" */ = {
+		3613E2A62B49853900D96E53 /* Build configuration list for PBXNativeTarget "pajamaTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3613E2A72B49853900D96E53 /* Debug */,
@@ -616,7 +632,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		3613E2A92B49853900D96E53 /* Build configuration list for PBXNativeTarget "sidekickUITests" */ = {
+		3613E2A92B49853900D96E53 /* Build configuration list for PBXNativeTarget "pajamaUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				3613E2AA2B49853900D96E53 /* Debug */,
