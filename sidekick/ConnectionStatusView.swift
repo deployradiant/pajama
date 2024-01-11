@@ -12,6 +12,7 @@ enum ConnectionStatus {
   case CONNECTING
   case CONNECTED
   case ERROR
+  case NOT_INSTALLED
 }
 
 struct ConnectionStatusView: View {
@@ -39,6 +40,8 @@ struct ConnectionStatusView: View {
       return Color.green
     case .ERROR:
       return Color.red
+    case .NOT_INSTALLED:
+        return Color.gray
     }
   }
 
@@ -50,6 +53,8 @@ struct ConnectionStatusView: View {
       return "Ollama is running"
     case .ERROR:
       return "Failed to connect"
+    case .NOT_INSTALLED:
+      return "Not installed"
     }
   }
 }

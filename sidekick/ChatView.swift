@@ -17,10 +17,11 @@ struct ChatView: View {
   @State private var textInput = ""
   @State private var loadingTask: URLSessionDataTask? = nil
   @State private var showSidebar = true
+  @State private var isPullingModel = false
   @State private var chatMessages: [ChatMessage] = []
-    @FocusState private var textInputFocused: Bool
+  @FocusState private var textInputFocused: Bool
   @State private var loadingMessage: ChatMessage = ChatMessage(content: "", role: "assistant")
-    
+
   var body: some View {
     ZStack(alignment: .top) {
       HStack(spacing: 0) {
@@ -45,23 +46,22 @@ struct ChatView: View {
             if connectionState == .CONNECTING {
               ProgressView()
             } else if connectionState == .CONNECTED {
-                ScrollViewReader { viewReader in
-                    ScrollView {
-                        VStack(alignment: .center, spacing: 20) {
-                            ForEach(chatMessages) { chatMessage in
-                                ChatMessageView(
-                                    chatMessage: .constant(chatMessage), finishedRendering: .constant(true))
-                            }
-                            if !loadingMessage.content.isEmpty {
-                                ChatMessageView(
-                                    chatMessage: $loadingMessage, finishedRendering: .constant(false))
-                            } else if loadingTask != nil {
-                                ProgressView().padding(.horizontal)
-                            }
-                        }
-                    }.defaultScrollAnchor(.bottom)
-                    
-                }
+              ScrollViewReader { viewReader in
+                ScrollView {
+                  VStack(alignment: .center, spacing: 20) {
+                    ForEach(chatMessages) { chatMessage in
+                      ChatMessageView(
+                        chatMessage: .constant(chatMessage), finishedRendering: .constant(true))
+                    }
+                    if !loadingMessage.content.isEmpty {
+                      ChatMessageView(
+                        chatMessage: $loadingMessage, finishedRendering: .constant(false))
+                    } else if loadingTask != nil {
+                      ProgressView().padding(.horizontal)
+                    }
+                  }
+                } // .defaultScrollAnchor(.bottom)
+              }
               Spacer()
               if loadingTask != nil {
                 Button {
@@ -75,10 +75,10 @@ struct ChatView: View {
                 .font(.title3)
                 .focused($textInputFocused, equals: true)
                 .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                                self.textInputFocused = true
-                              }
-                            }
+                  DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                    self.textInputFocused = true
+                  }
+                }
                 .foregroundColor(.white)
                 .border(.secondary)
                 .onSubmit {
@@ -108,7 +108,7 @@ struct ChatView: View {
                 .background(.white.opacity(0.2))
                 .cornerRadius(10)
                 .padding()
-            } else {
+            } else if connectionState == .ERROR {
               Text("Could not connect ollama, is it running?")
               Spacer()
               Button(
@@ -116,9 +116,7 @@ struct ChatView: View {
                   connectionState = .CONNECTING
                   DispatchQueue.global(qos: .background).async {
                     let _ = runBashCommand(command: "/usr/local/bin/ollama run zephyr \"\"")
-                    checkIfOllamaIsRunning { result in
-                      connectionState = if result { .CONNECTED } else { .ERROR }
-                    }
+                    checkConnectionStatus()
                   }
                 },
                 label: {
@@ -126,6 +124,13 @@ struct ChatView: View {
                 }
               )
               .buttonStyle(.borderedProminent)
+              Spacer()
+            } else {
+              Spacer()
+              Text("It appears ollama is not installed under /usr/local/bin/ollama.")
+              Link(destination: URL(string: "https://ollama.ai")!) {
+                Text("Get ollama")
+              }
               Spacer()
             }
 
@@ -137,30 +142,44 @@ struct ChatView: View {
         Spacer(minLength: 5).fixedSize()
         HStack(alignment: .top) {
           Spacer(minLength: 70).fixedSize()
-            HStack {
-                Button {
-                    showSidebar = !showSidebar
-                } label: {
-                    Image(systemName: "sidebar.left").imageScale(.large)
-                }.buttonStyle(.borderless)
-                Button {
-                    chatMessages = []
-                } label: {
-                    Image(systemName: "trash.circle").imageScale(.large)
-                }.buttonStyle(.borderless)
-            }
+          HStack {
+            Button {
+              showSidebar = !showSidebar
+            } label: {
+              Image(systemName: "sidebar.left").imageScale(.large)
+            }.buttonStyle(.borderless)
+            Button {
+              chatMessages = []
+            } label: {
+              Image(systemName: "trash.circle").imageScale(.large)
+            }.buttonStyle(.borderless)
+          }
           ConnectionStatusView(state: $connectionState).padding(.horizontal)
             .onAppear {
-              checkIfOllamaIsRunning { result in
-                connectionState = if result { .CONNECTED } else { .ERROR }
-              }
+              checkConnectionStatus()
             }
         }
       }.ignoresSafeArea()
     }
-
   }
 
+  private func checkConnectionStatus() -> Void {
+    checkIfOllamaIsRunning { result in
+      connectionState = if result {
+         .CONNECTED
+        } else {
+          if checkIfOllamaInstalled() {
+            .ERROR
+          } else {
+            .NOT_INSTALLED
+          }
+        }
+        if connectionState == .CONNECTED {
+            isPullingModel = true
+            isPullingModel = false
+        }
+    }
+  }
 }
 
 struct ChatView_Previews: PreviewProvider {

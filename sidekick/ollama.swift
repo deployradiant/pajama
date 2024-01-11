@@ -130,6 +130,10 @@ public func checkIfOllamaIsRunning(callbackFn: @escaping @Sendable (_: Bool) -> 
   checkTask.resume()
 }
 
+public func checkIfOllamaInstalled() -> Bool {
+    return runBashCommand(command: "ls /usr/local/bin/ollama") == "/usr/local/bin/ollama"
+}
+
 public func loadModels(callbackFn: @escaping @Sendable (_: ModelsResponse) -> Void) {
   let session = URLSession.shared
   guard let baseUrl = URL(string: "http://127.0.0.1:11434/api/tags") else {
@@ -181,6 +185,5 @@ public func pullModel(modelName: String, callbackFn: @escaping @Sendable (_: Boo
         }
         
     }
-    
     pullTask.resume()
 }
