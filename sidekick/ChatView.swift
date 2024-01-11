@@ -12,12 +12,11 @@ import SwiftUI
 
 struct ChatView: View {
   @Binding var isPresented: Bool
-  @State private var connectionState: ConnectionStatus = .CONNECTING
+  @State private var connectionStatus: ConnectionStatus = .CONNECTING
   @State private var selectedModel: String?
   @State private var textInput = ""
   @State private var loadingTask: URLSessionDataTask? = nil
   @State private var showSidebar = true
-  @State private var isPullingModel = false
   @State private var chatMessages: [ChatMessage] = []
   @FocusState private var textInputFocused: Bool
   @State private var loadingMessage: ChatMessage = ChatMessage(content: "", role: "assistant")
@@ -25,7 +24,7 @@ struct ChatView: View {
   var body: some View {
     ZStack(alignment: .top) {
       HStack(spacing: 0) {
-        Sidebar(selectedModel: $selectedModel).frame(
+          Sidebar(selectedModel: $selectedModel, connectionStatus: $connectionStatus).frame(
           maxWidth: showSidebar ? 200 : 0, maxHeight: .infinity, alignment: .top
         ).background(.gray)
         ZStack {
@@ -43,9 +42,11 @@ struct ChatView: View {
           VStack {
             Spacer(minLength: 20).fixedSize()
             Spacer()
-            if connectionState == .CONNECTING {
-              ProgressView()
-            } else if connectionState == .CONNECTED {
+            if connectionStatus == .CONNECTING {
+                Spacer()
+                ProgressView()
+                Spacer()
+            } else if connectionStatus == .CONNECTED {
               ScrollViewReader { viewReader in
                 ScrollView {
                   VStack(alignment: .center, spacing: 20) {
@@ -108,12 +109,12 @@ struct ChatView: View {
                 .background(.white.opacity(0.2))
                 .cornerRadius(10)
                 .padding()
-            } else if connectionState == .ERROR {
+            } else if connectionStatus == .ERROR {
               Text("Could not connect ollama, is it running?")
               Spacer()
               Button(
                 action: {
-                  connectionState = .CONNECTING
+                  connectionStatus = .CONNECTING
                   DispatchQueue.global(qos: .background).async {
                     let _ = runBashCommand(command: "/usr/local/bin/ollama run zephyr \"\"")
                     checkConnectionStatus()
@@ -154,7 +155,7 @@ struct ChatView: View {
               Image(systemName: "trash.circle").imageScale(.large)
             }.buttonStyle(.borderless)
           }
-          ConnectionStatusView(state: $connectionState).padding(.horizontal)
+          ConnectionStatusView(state: $connectionStatus).padding(.horizontal)
             .onAppear {
               checkConnectionStatus()
             }
@@ -165,7 +166,7 @@ struct ChatView: View {
 
   private func checkConnectionStatus() -> Void {
     checkIfOllamaIsRunning { result in
-      connectionState = if result {
+      connectionStatus = if result {
          .CONNECTED
         } else {
           if checkIfOllamaInstalled() {
@@ -173,10 +174,6 @@ struct ChatView: View {
           } else {
             .NOT_INSTALLED
           }
-        }
-        if connectionState == .CONNECTED {
-            isPullingModel = true
-            isPullingModel = false
         }
     }
   }
@@ -192,6 +189,7 @@ struct ChatView_Previews: PreviewProvider {
 
 struct Sidebar: View {
   @Binding var selectedModel: String?
+  @Binding var connectionStatus: ConnectionStatus
   @State var isPullingModel: Bool = false
   @State private var models: [ModelResponse] = []
 
@@ -218,15 +216,17 @@ struct Sidebar: View {
           }
           setSelectedModel(model: selectedModel!)
         })
-    }.onAppear(perform: {
-      loadModels(callbackFn: setModels)
-    }).onChange(
+    }.onChange(
       of: isPullingModel, initial: false,
       {
         if isPullingModel {
           return
         }
         loadModels(callbackFn: setModels)
+      }).onChange(of: connectionStatus, {
+          if connectionStatus == .CONNECTED {
+              loadModels(callbackFn: setModels)
+          }
       })
   }
 

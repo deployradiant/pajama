@@ -131,7 +131,7 @@ public func checkIfOllamaIsRunning(callbackFn: @escaping @Sendable (_: Bool) -> 
 }
 
 public func checkIfOllamaInstalled() -> Bool {
-    return runBashCommand(command: "ls /usr/local/bin/ollama") == "/usr/local/bin/ollama"
+    return runBashCommand(command: "ls /usr/local/bin/ollama") != nil
 }
 
 public func loadModels(callbackFn: @escaping @Sendable (_: ModelsResponse) -> Void) {
