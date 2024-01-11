@@ -20,7 +20,9 @@ struct ChatView: View {
   @State private var chatMessages: [ChatMessage] = []
   @FocusState private var textInputFocused: Bool
   @State private var loadingMessage: ChatMessage = ChatMessage(content: "", role: "assistant")
-
+  @State private var scrollReader: ScrollViewProxy? = nil
+  @State private var lastId: UUID? = UUID()
+    
   var body: some View {
     ZStack(alignment: .top) {
       HStack(spacing: 0) {
@@ -30,24 +32,19 @@ struct ChatView: View {
         ZStack {
           Rectangle()
             .fill(.ultraThinMaterial)
-            .background(
-              .linearGradient(
-                Gradient(colors: [.black.opacity(0.3), .black.opacity(0.3)]), startPoint: .top,
-                endPoint: .bottom)
-            )
+            .background(.black.opacity(0.3))
             .opacity(0.9)
             .border(.clear)
             .frame(maxWidth: .infinity, maxHeight: .infinity)
-
           VStack {
-            Spacer(minLength: 20).fixedSize()
+            Spacer(minLength: 25).fixedSize()
             Spacer()
             if connectionStatus == .CONNECTING {
                 Spacer()
                 ProgressView()
                 Spacer()
             } else if connectionStatus == .CONNECTED {
-              ScrollViewReader { viewReader in
+              ScrollViewReader { reader in
                 ScrollView {
                   VStack(alignment: .center, spacing: 20) {
                     ForEach(chatMessages) { chatMessage in
@@ -60,8 +57,11 @@ struct ChatView: View {
                     } else if loadingTask != nil {
                       ProgressView().padding(.horizontal)
                     }
+                    Spacer(minLength: 2).id(lastId).onAppear {
+                        scrollReader = reader
+                    }
                   }
-                } // .defaultScrollAnchor(.bottom)
+                }.scrollPosition(id: $lastId)
               }
               Spacer()
               if loadingTask != nil {
@@ -95,7 +95,8 @@ struct ChatView: View {
                         WireChatMessage(content: message.content, role: message.role)
                       }),
                       callbackFn: { response in
-                        loadingMessage.content += response
+                          loadingMessage.content += response
+                          scrollToBottom()
                       },
                       completeFn: {
                         chatMessages.append(loadingMessage)
@@ -139,6 +140,14 @@ struct ChatView: View {
         }
         .ignoresSafeArea()
       }
+      Rectangle()
+          .fill(.ultraThickMaterial)
+          .background(
+            .black.opacity(0.3)
+          )
+          .opacity(0.9)
+          .border(.clear)
+          .frame(maxWidth: .infinity, maxHeight: 0)
       VStack {
         Spacer(minLength: 5).fixedSize()
         HStack(alignment: .top) {
@@ -163,6 +172,10 @@ struct ChatView: View {
       }.ignoresSafeArea()
     }
   }
+    
+  private func scrollToBottom() {
+      scrollReader?.scrollTo(lastId)
+   }
 
   private func checkConnectionStatus() -> Void {
     checkIfOllamaIsRunning { result in

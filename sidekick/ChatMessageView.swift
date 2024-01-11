@@ -87,7 +87,7 @@ struct ChatMessageView: View {
             }
           }
         }
-      } // .defaultScrollAnchor(.bottom)
+      }
     }
     .padding()
     .background(.white)
