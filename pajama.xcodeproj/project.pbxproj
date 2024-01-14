@@ -44,7 +44,6 @@
 		3613E2832B49853800D96E53 /* ChatView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatView.swift; sourceTree = "<group>"; };
 		3613E2852B49853900D96E53 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3613E2882B49853900D96E53 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		3613E28A2B49853900D96E53 /* sidekick.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = sidekick.entitlements; sourceTree = "<group>"; };
 		3613E28F2B49853900D96E53 /* pajamaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pajamaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3613E2932B49853900D96E53 /* pajamaTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = pajamaTests.swift; sourceTree = "<group>"; };
 		3613E2992B49853900D96E53 /* pajamaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = pajamaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,7 +109,6 @@
 				3613E2812B49853800D96E53 /* pajamaApp.swift */,
 				3613E2832B49853800D96E53 /* ChatView.swift */,
 				3613E2852B49853900D96E53 /* Assets.xcassets */,
-				3613E28A2B49853900D96E53 /* sidekick.entitlements */,
 				3613E2872B49853900D96E53 /* Preview Content */,
 				3675D7202B4A861400943E9D /* ChatMessageView.swift */,
 				3675D7222B4A867500943E9D /* ollama.swift */,
@@ -356,6 +354,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
@@ -376,6 +375,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
@@ -422,6 +422,7 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "Mac Developer";
 				COPY_PHASE_STRIP = NO;
 				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
@@ -437,6 +438,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.productivity";
 				INFOPLIST_KEY_NSLocalNetworkUsageDescription = "";
 				INFOPLIST_KEY_NSNetworkVolumesUsageDescription = "";
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
