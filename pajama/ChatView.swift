@@ -72,8 +72,9 @@ struct ChatView: View {
                   Image(systemName: "stop.circle").imageScale(.large)
                 }.buttonStyle(.borderless)
               }
-              TextField("Enter text here...", text: $textInput, axis: .vertical)
+              TextField("Write something..", text: $textInput, axis: .vertical)
                 .font(.title3)
+                .foregroundColor(.black)
                 .focused($textInputFocused, equals: true)
                 .onAppear {
                   DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
