@@ -24,7 +24,7 @@ act with Ollama and open source models.
 
 ### App
 
-Download here
+[Download here](https://github.com/deployradiant/pajama/releases/download/v0.0.2/Pajama.v0.2.zip)
 
 <img width="1012" alt="Pajama screenshot" src="https://github.com/deployradiant/pajama/assets/6087389/4e2ed383-dbe5-43c0-be48-402e447ac4cb">
 
