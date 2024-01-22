@@ -12,6 +12,16 @@ act with Ollama and open source models.
 
 <img width="500" style="margin-left: auto; margin-right: auto" alt="Pajama gif" src="https://github.com/deployradiant/pajama/assets/6087389/5e249ffe-200c-4db2-ab6d-7071ae752981">
 
+### Current feature set
+
+- [x] Support multple Ollama models
+- [x] Support pulling of Ollama models
+- [x] Show Ollama state
+- [x] Support code formatting
+- [x] Support copy&paste
+- [ ] Make rendering faster
+- [ ] Support potentially other model providers such as OpenAI or Together.ai
+
 ### App
 
 Download here
